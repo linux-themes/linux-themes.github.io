@@ -1,2 +1,3 @@
 # website
-Linux Themes community website.
+
+Linux Themes community website
