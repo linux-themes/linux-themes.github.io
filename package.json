@@ -1,0 +1,11 @@
+{
+  "name": "website",
+  "version": "0.0.1",
+  "description": "Linux Themes | Browse and download themes and configurations",
+  "url": "linuxthemes.org",
+  "author": "sudo-adduser-jordan",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "main": "index.js"
+}
