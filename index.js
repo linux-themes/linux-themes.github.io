@@ -1,1 +1,0 @@
-const TITLE = "Linux Themes";
