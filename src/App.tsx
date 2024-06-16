@@ -1,9 +1,8 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 function App() {
-
   return (
     <>
       <div>
@@ -16,14 +15,13 @@ function App() {
       </div>
       <h1>Linux Themes</h1>
       <div className="card">
-
         <p> 🔨 In Developement </p>
       </div>
       <p className="read-the-docs">
         To learn more visit <a>https://github.com/linux-themes</a>
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
