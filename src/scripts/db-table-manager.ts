@@ -1,28 +1,26 @@
 import jsyaml from "js-yaml";
+import type Themes from "../pages/database/themes.astro";
 
 interface Themes {
+  Name: string;
   Description: string;
   Category: string;
   Desktop: string;
 }
 
 interface Icons {
+  Name: string;
   Description: string;
   Category: string;
 }
 
 interface Configs {
+  Name: string;
   Description: string;
   Category: string;
 }
 
-interface Component {
-  Channel: string;
-  Category: string;
-  "Sub-category"?: string;
-}
-
-type DatabaseType = ".themes" | ".icons" | ".configs" | "components";
+type DatabaseType = ".themes" | ".icons" | ".configs";
 
 class DatabaseTableManager {
   private tableId: string;
@@ -72,7 +70,7 @@ class DatabaseTableManager {
     }
   }
 
-  private renderRow(item: string, data: Themes | Component) {
+  private renderRow(item: string, data: Themes | Icons | Configs) {
     const table = document.getElementById(this.tableId)?.getElementsByTagName("tbody")[0];
     if (!table) {
       console.error("Table element not found");
@@ -108,15 +106,13 @@ class DatabaseTableManager {
       // ICONS
       const actions = row.insertCell(3);
       actions.classList.add("px-6", "py-4", "whitespace-nowrap", "text-lg", "font-medium", "text-blue-600", "dark:text-blue-400");
-
       const icon = data as Icons;
       descriptionOrType.classList.add("px-6", "py-4", "whitespace-nowrap");
-      descriptionOrType.innerHTML = `<span class="px-2 py-1 rounded-lg">${icon.Description || "n/a"}</span>`;
-      category.innerHTML = `<span class="px-2 py-1 rounded-lg ${this.getCategoryColor(icon.Category)}">${icon.Category}</span>`;
+      // descriptionOrType.innerHTML = `<span class="px-2 py-1 rounded-lg">${icon.Description || "n/a"}</span>`;
+      // category.innerHTML = `<span class="px-2 py-1 rounded-lg ${this.getCategoryColor(icon.Category)}">${icon.Category}</span>`;
       // additional.classList.add('px-6', 'py-4', 'whitespace-nowrap');
       // additional.innerHTML = `<span class="px-2 py-1 rounded-lg">${icon.Channel}</span>`;
       actions.innerHTML = `
-      <a href='https://github.com/linux-themes/.icons/blob/main/${icon.Category}/${item}.yml' class="text-blue-600 dark:text-blue-400">Details</a> |
       <a href='https://github.com/linux-themes/.icons/issues/new/choose' class="text-blue-600 dark:text-blue-400">Report problem</a>`;
     } else if (this.databaseType === ".configs") {
       // CONFIGS
@@ -139,13 +135,19 @@ class DatabaseTableManager {
       .then((response) => response.text())
       .then((data) => {
         console.info(`${this.databaseType} database index found.`);
-        const parsedData = jsyaml.load(data) as Record<string, any>;
+        const parsedData = jsyaml.load(data) as any;
+        console.log(this.dataUrl);
         console.log(parsedData);
+        console.log(parsedData.Themes);
 
-        for (let item in parsedData) {
+        console.log("test");
+
+        for (let item in parsedData.Themes) {
+          console.log(item);
           this.renderRow(item, parsedData[item]);
         }
       })
+
       .catch((err) => {
         console.error(`Failed to fetch ${this.databaseType} database index!`, err);
       });
