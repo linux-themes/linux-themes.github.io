@@ -35,7 +35,6 @@ class DatabaseTableManager {
   }
 
   private getCategoryColor(category: string): string {
-    console.log(category);
     switch (category.toLowerCase()) {
       case "theme":
         return "bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100";
@@ -53,7 +52,6 @@ class DatabaseTableManager {
   }
 
   private getDesktpColor(desktop: string): string {
-    console.log(desktop);
     switch (desktop.toLowerCase()) {
       case "theme":
         return "bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100";
@@ -78,25 +76,26 @@ class DatabaseTableManager {
     }
 
     const row = table.insertRow(-1);
-    row.classList.add("hover:bg-gray-50", "dark:hover:bg-gray-700", "border-b", "dark:border-gray-700");
     const name = row.insertCell(0);
     const descriptionOrType = row.insertCell(1);
     const category = row.insertCell(2);
 
+    row.classList.add("hover:bg-gray-50", "dark:hover:bg-gray-700", "border-b", "dark:border-gray-700");
     name.classList.add("px-6", "py-4", "whitespace-nowrap", "text-lg", "font-medium", "text-gray-900", "dark:text-gray-100");
     category.classList.add("px-6", "py-4", "whitespace-nowrap");
-    name.innerHTML = `<span class="font-semibold">${item}</span>`;
 
     if (this.databaseType === ".themes") {
       // THEMES
+      const theme = data as Themes;
       const desktop = row.insertCell(3);
       const actions = row.insertCell(4);
+
       actions.classList.add("px-6", "py-4", "whitespace-nowrap", "text-lg", "font-medium", "text-blue-600", "dark:text-blue-400");
       desktop.classList.add("px-6", "py-4", "whitespace-nowrap");
-
-      const theme = data as Themes;
       descriptionOrType.classList.add("px-6", "py-4", "whitespace-nowrap", "text-lg", "text-gray-500", "dark:text-gray-300");
+
       descriptionOrType.innerHTML = `<span class="text-gray-600 dark:text-gray-400">${theme.Description}</span>`;
+      name.innerHTML = `<span class="font-semibold">${data.Name}</span>`;
       category.innerHTML = `<span class="px-2 py-1 rounded-lg ${this.getCategoryColor(theme.Category)}">${theme.Category}</span>`;
       desktop.innerHTML = `<span class="px-2 py-1 rounded-lg ${this.getDesktpColor(theme.Desktop)}">${theme.Desktop}</span>`;
       actions.innerHTML = `
@@ -104,26 +103,30 @@ class DatabaseTableManager {
       <a href='https://github.com/linux-themes/.themes/issues/new/choose' class="text-blue-600 dark:text-blue-400">Report problem</a>`;
     } else if (this.databaseType === ".icons") {
       // ICONS
-      const actions = row.insertCell(3);
-      actions.classList.add("px-6", "py-4", "whitespace-nowrap", "text-lg", "font-medium", "text-blue-600", "dark:text-blue-400");
       const icon = data as Icons;
+      const actions = row.insertCell(3);
+
+      actions.classList.add("px-6", "py-4", "whitespace-nowrap", "text-lg", "font-medium", "text-blue-600", "dark:text-blue-400");
       descriptionOrType.classList.add("px-6", "py-4", "whitespace-nowrap");
-      // descriptionOrType.innerHTML = `<span class="px-2 py-1 rounded-lg">${icon.Description || "n/a"}</span>`;
-      // category.innerHTML = `<span class="px-2 py-1 rounded-lg ${this.getCategoryColor(icon.Category)}">${icon.Category}</span>`;
-      // additional.classList.add('px-6', 'py-4', 'whitespace-nowrap');
-      // additional.innerHTML = `<span class="px-2 py-1 rounded-lg">${icon.Channel}</span>`;
+
+      name.innerHTML = `<span class="font-semibold">${data.Name}</span>`;
+      descriptionOrType.innerHTML = `<span class="px-2 py-1 rounded-lg">${icon.Description || "n/a"}</span>`;
+      category.innerHTML = `<span class="px-2 py-1 rounded-lg ${this.getCategoryColor(icon.Category)}">${icon.Category}</span>`;
       actions.innerHTML = `
+      <a href='https://github.com/linux-themes/.themes/blob/main/${icon.Category}/${item}.yml' class="text-blue-600 dark:text-blue-400">Details</a> |
       <a href='https://github.com/linux-themes/.icons/issues/new/choose' class="text-blue-600 dark:text-blue-400">Report problem</a>`;
     } else if (this.databaseType === ".configs") {
       // CONFIGS
-      const actions = row.insertCell(4);
-      actions.classList.add("px-6", "py-4", "whitespace-nowrap", "text-lg", "font-medium", "text-blue-600", "dark:text-blue-400");
       const config = data as Configs;
+      const actions = row.insertCell(4);
+
+      actions.classList.add("px-6", "py-4", "whitespace-nowrap", "text-lg", "font-medium", "text-blue-600", "dark:text-blue-400");
       descriptionOrType.classList.add("px-6", "py-4", "whitespace-nowrap");
       // descriptionOrType.innerHTML = `<span class="px-2 py-1 rounded-lg">${config["Sub-category"] || "n/a"}</span>`;
-      category.innerHTML = `<span class="px-2 py-1 rounded-lg ${this.getCategoryColor(config.Category)}">${config.Category}</span>`;
       // additional.classList.add('px-6', 'py-4', 'whitespace-nowrap');
       // additional.innerHTML = `<span class="px-2 py-1 rounded-lg">${config.Channel}</span>`;
+      name.innerHTML = `<span class="font-semibold">${data.Name}</span>`;
+      category.innerHTML = `<span class="px-2 py-1 rounded-lg ${this.getCategoryColor(config.Category)}">${config.Category}</span>`;
       actions.innerHTML = `
         <a href='https://github.com/linux-themes/.configs/blob/main/${config.Category}/${item}.yml' class="text-blue-600 dark:text-blue-400">Details</a> |
         <a href='https://github.com/linux-themes/.configs/issues/new/choose' class="text-blue-600 dark:text-blue-400">Report problem</a>`;
@@ -136,15 +139,9 @@ class DatabaseTableManager {
       .then((data) => {
         console.info(`${this.databaseType} database index found.`);
         const parsedData = jsyaml.load(data) as any;
-        console.log(this.dataUrl);
-        console.log(parsedData);
-        console.log(parsedData.Themes);
-
-        console.log("test");
 
         for (let item in parsedData.Themes) {
-          console.log(item);
-          this.renderRow(item, parsedData[item]);
+          this.renderRow(item, parsedData.Themes[item]);
         }
       })
 
