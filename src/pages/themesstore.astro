@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
 ---
 
-<Layout title="ThemesStore">
+<Layout title="ThemesLibrary">
 
   <section class="p-10 bg-gray-50 dark:bg-gray-900">
     <div class="container mx-auto px-4">
@@ -14,19 +14,19 @@ import { Icon } from 'astro-icon/components';
     </div>
     <div class="flex justify-center mb-8">
       <div class="relative w-full max-w-md">
-        <input type="search" id="storeSearch" autocomplete="off" placeholder="Mint Theme" class="w-full py-2 pl-10 pr-4 border rounded-lg shadow-sm focus:ring focus:outline-none dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-400 dark:border-gray-700" />
+        <input type="search" id="storeSearch" autocomplete="off" placeholder="mint" class="w-full py-2 pl-10 pr-4 border rounded-lg shadow-sm focus:ring focus:outline-none dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-400 dark:border-gray-700" />
         <Icon name="material-symbols:search" class="absolute top-2 left-2 w-6 h-6 text-gray-400 dark:text-gray-300" />
       </div>
     </div>
   </section>
 
   <div class="container mx-auto px-4 mt-8">
-      <div id="filters" class="flex mb-8 space-x-4 overflow-x-auto md:overflow-x-hidden w-full md:justify-center">
-        <button id="allFilter" class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors active:shadow-lg">All</button>
-        <button id="platinumFilter" class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors opacity-50">Themes</button>
-        <button id="silverFilter" class="bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors opacity-50">Icons</button>
-        <button id="goldFilter" class="bg-yellow-300 dark:bg-yellow-600 text-yellow-900 dark:text-yellow-100 px-4 py-2 rounded-lg hover:bg-yellow-400 dark:hover:bg-yellow-500 transition-colors opacity-50">Configs</button>
-      </div>
+    <div id="filters" class="flex mb-8 space-x-4 overflow-x-auto md:overflow-x-hidden w-full md:justify-center">
+      <button onclick="location.href='/themesstore'" id="allFilter" class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors active:shadow-lg">All</button>
+      <button onclick="location.href='/database/themes'" id="themesFilter" class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors opacity-50">Themes</button>
+      <button onclick="location.href='/database/icons'" id="iconsFilter" class="bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors opacity-50">Icons</button>
+      <button onclick="location.href='/database/configs'" id="configsFilter" class="bg-yellow-300 dark:bg-yellow-600 text-yellow-900 dark:text-yellow-100 px-4 py-2 rounded-lg hover:bg-yellow-400 dark:hover:bg-yellow-500 transition-colors opacity-50">Configs</button>
+    </div>
 
       <div id="storeResults" class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- JS will inject cards here -->
