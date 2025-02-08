@@ -22,7 +22,7 @@ import { Icon } from 'astro-icon/components';
 
   <div class="container mx-auto px-4 mt-8">
     <div id="filters" class="flex mb-8 space-x-4 overflow-x-auto md:overflow-x-hidden w-full md:justify-center">
-      <button onclick="location.href='/themesstore'" id="allFilter" class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors opacity-50">All</button>
+      <button onclick="location.href='/themesdatabase'" id="allFilter" class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors opacity-50">All</button>
       <button onclick="location.href='/database/themes'" id="themesFilter" class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors active:shadow-lg">Themes</button>
       <button onclick="location.href='/database/icons'" id="iconsFilter" class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors opacity-50">Icons</button>
       <button onclick="location.href='/database/configs'" id="configsFilter" class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors opacity-50">Configs</button>
@@ -49,7 +49,7 @@ interface Theme {
   Category: string;
 }
 
-class ThemesStore {
+class themesdatabase {
   searchInput: HTMLInputElement | null;
   filters: { [key: string]: HTMLElement | null };
   storeResults: HTMLElement | null;
@@ -119,14 +119,15 @@ class ThemesStore {
           for (const item in themes["Themes"]) {
             const theme = themes["Themes"][item];
             // const icon = `https://github.com/linux-themes/themes/blob/main/data/${item}/${theme.Icon}?raw=true`;
-            // const cardHTML = this.generateCardHTML(item, theme, icon);
-            const cardHTML = this.generateCardHTML(item, theme, "/assets/logo.svg");
+            // const cardHTML = this.generateThemesCardHTML(item, theme, icon);
+            const cardHTML = this.generateThemesCardHTML(item, theme, "/assets/logo.svg");
             this.storeResults.innerHTML += cardHTML;
           }
         }
       })
       .catch((err) => console.error('Failed to fetch Installers database index!', err));
   }
+
   getsColor(category: string): string {
         switch (category.toLowerCase()) {
             case 'essentials':
@@ -161,7 +162,8 @@ class ThemesStore {
         return 'bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100';
         // return 'bg-gray-300 text-gray-900';
       case 'themes':
-        return 'bg-yellow-300 text-yellow-900 dark:bg-yellow-600 dark:text-yellow-100';
+        return 'bg-purple-300 text-purple-900 dark:bg-purple-600 dark:text-purple-100';
+        // return 'bg-yellow-300 text-yellow-900 dark:bg-yellow-600 dark:text-yellow-100';
       // return 'bg-gray-300 text-gray-900';
       case 'icon':
         return 'bg-blue-300 text-blue-900 dark:bg-blue-600 dark:text-blue-100';
@@ -176,7 +178,9 @@ class ThemesStore {
   getCategoryColor(category: string): string {
     switch (category.toLowerCase()) {
       case 'themes':
-        return 'bg-yellow-300 text-yellow-900 dark:bg-yellow-600 dark:text-yellow-100';
+        return 'bg-purple-300 text-purple-900 dark:bg-purple-600 dark:text-purple-100';
+
+        // return 'bg-yellow-300 text-yellow-900 dark:bg-yellow-600 dark:text-yellow-100';
         // return 'bg-blue-200 text-blue-800';
       case 'icons':
         return 'bg-blue-300 text-blue-900 dark:bg-blue-600 dark:text-blue-100';
@@ -188,7 +192,7 @@ class ThemesStore {
     }
   }
 
-  generateCardHTML(item: string, theme: Theme, icon: string): string {
+  generateThemesCardHTML(item: string, theme: Theme, icon: string): string {
     theme.Grade = 'custom'
     theme.Category = 'themes'
     return `
@@ -216,7 +220,7 @@ class ThemesStore {
     }
 }
 document.addEventListener('DOMContentLoaded', () => {
-  new ThemesStore();
+  new themesdatabase();
 });
 </script>
 
