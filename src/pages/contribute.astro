@@ -78,6 +78,7 @@ import { Icon } from "astro-icon/components";
         <div class="grid md:grid-cols-3 gap-6">
           {
             [
+              // COMMAND LINE TOOL
               {
                 status: "CLI",
                 statusColorClass: "bg-green-500",
@@ -109,6 +110,26 @@ import { Icon } from "astro-icon/components";
                 description: "Add support for Cinnamon Desktop.",
                 progress: 100,
                 link: "https://github.com/linux-themes/themes",
+              },
+              // WEBSITE
+              {
+                status: "WEB",
+                statusColorClass: "bg-orange-500",
+                title: "Add Desktop Badges",
+                description: "Add desktop badges to cards.",
+                progress: 100,
+                link: "https:linuxthemes.org/website",
+                icons: [
+                  {
+                    name: "material-symbols:build-circle",
+                    title: "In progress",
+                  },
+                  {
+                    name: "material-symbols:help-outline",
+                    title: "Needs funding",
+                  },
+                ],
+                infoText: "infoText",
               },
               {
                 status: "WEB",
@@ -148,6 +169,7 @@ import { Icon } from "astro-icon/components";
                 ],
                 infoText: "infoText",
               },
+              // DOCUMENTATION
               {
                 status: "DOCS",
                 statusColorClass: "bg-yellow-500",
@@ -157,6 +179,7 @@ import { Icon } from "astro-icon/components";
                 link: "https://github.com/linux-themes/",
                 infoText: "infoText",
               },
+              // DATABASE
               {
                 status: "DB",
                 statusColorClass: "bg-blue-500",
@@ -214,6 +237,7 @@ import { Icon } from "astro-icon/components";
                 ],
                 infoText: "infoText",
               },
+              // TEST
               {
                 status: "TEST",
                 statusColorClass: "bg-purple-500",
