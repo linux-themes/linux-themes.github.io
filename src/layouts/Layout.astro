@@ -1,11 +1,11 @@
 ---
-import '../styles/tailwind.css';
-import Header from '../components/Header.astro';
-import Sponsors from '../components/Sponsors.astro';
-import Footer from '../components/Footer.astro';
+import "../styles/tailwind.css";
+import Header from "../components/Header.astro";
+import Sponsors from "../components/Sponsors.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -13,27 +13,26 @@ const { title } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="shortcut icon" href="/uploads/themes.png" type="image/png" />
-		<link rel="icon" type="image/png" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<meta content="profile" property="og:type">
-		<meta content='81 Posts, 14 Following, 830 Followers · Run Windows software on Linux with themes.' name='description'>
-		<meta content="Mastodon" property="og:site_name">
-		<meta content="81 Posts, 14 Following, 830 Followers · Run Windows software on Linux with themes." property="og:description">
-		<meta content="400" property="og:image:width">
-		<meta content="400" property="og:image:height">
-		<meta content="summary" property="twitter:card">
-	</head>
-	<body class="antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-200">
-		<Header />
-		<slot />
-		<Sponsors />
-		<Footer />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="/uploads/themes.png" type="image/png" />
+    <link rel="icon" type="image/png" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta content="profile" property="og:type" />
+    <meta content="81 Posts, 14 Following, 830 Followers · Run Windows software on Linux with themes." name="description" />
+    <meta content="Mastodon" property="og:site_name" />
+    <meta content="81 Posts, 14 Following, 830 Followers · Run Windows software on Linux with themes." property="og:description" />
+    <meta content="400" property="og:image:width" />
+    <meta content="400" property="og:image:height" />
+    <meta content="summary" property="twitter:card" />
+  </head>
+  <body class="antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-200">
+    <Header />
+    <slot />
+    <Sponsors />
+    <Footer />
+  </body>
 </html>
-

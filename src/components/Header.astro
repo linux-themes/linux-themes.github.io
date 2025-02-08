@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 ---
 
 <header class="bg-white dark:bg-gray-800 shadow-md py-4 sticky top-0 z-50">
@@ -59,7 +59,8 @@ import { Icon } from 'astro-icon/components';
         <Icon name="material-symbols:book-2-outline" class="w-6 h-6 mr-1" /> Docs
       </a>
       <a href="https://github.com/linux-themes/themes/issues?q=is%3Aissue+label%3ABug" class="flex items-center text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 text-xl">
-        <Icon name="material-symbols:bug-report-outline" class="w-6 h-6 mr-1" /> Bug report
+        <Icon name="material-symbols:bug-report-outline" class="w-6 h-6 mr-1" />
+        Bug report
       </a>
       <a href="https://github.com/" class="flex items-center text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 text-xl">
         <Icon name="material-symbols:translate" class="w-6 h-6 mr-1" /> Help translating
@@ -72,26 +73,26 @@ import { Icon } from 'astro-icon/components';
 </header>
 
 <script>
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const line1 = document.getElementById('line1');
-  const line2 = document.getElementById('line2');
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const line1 = document.getElementById("line1");
+  const line2 = document.getElementById("line2");
 
   let menuOpen = false;
 
-  hamburger!.addEventListener('click', () => {
-    console.log('clicked');
+  hamburger!.addEventListener("click", () => {
+    console.log("clicked");
     menuOpen = !menuOpen;
     if (menuOpen) {
-      mobileMenu!.classList.remove('translate-x-full');
-      mobileMenu!.classList.add('translate-x-0');
-      line1!.classList.add('rotate-45');
-      line2!.classList.add('-rotate-45', '-translate-y-1.5');
+      mobileMenu!.classList.remove("translate-x-full");
+      mobileMenu!.classList.add("translate-x-0");
+      line1!.classList.add("rotate-45");
+      line2!.classList.add("-rotate-45", "-translate-y-1.5");
     } else {
-      mobileMenu!.classList.remove('translate-x-0');
-      mobileMenu!.classList.add('translate-x-full');
-      line1!.classList.remove('rotate-45');
-      line2!.classList.remove('-rotate-45', '-translate-y-1.5');
+      mobileMenu!.classList.remove("translate-x-0");
+      mobileMenu!.classList.add("translate-x-full");
+      line1!.classList.remove("rotate-45");
+      line2!.classList.remove("-rotate-45", "-translate-y-1.5");
     }
   });
 </script>

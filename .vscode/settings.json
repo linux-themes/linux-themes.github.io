@@ -1,4 +1,10 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "prettier.printWidth": 140
+  "editor.formatOnSave": true,
+  "prettier.printWidth": 120
+  // "prettier.useTabs": true,
+  // "prettier.tabWidth": 2,
+  // "[astro]": {
+  // "editor.defaultFormatter": "astro-build.astro-vscode"
+  // }
 }

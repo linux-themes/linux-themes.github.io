@@ -1,16 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { Icon } from 'astro-icon/components';
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
 ---
 
 <Layout title="Themes">
-
   <section class="bg-gradient-to-r from-purple-300 via-pink-200 to-red-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-600 min-h-screen flex flex-col md:justify-between gap-4 md:gap-0">
     <div class="text-center mt-20">
       <h1 class="text-6xl font-extrabold text-gray-800 dark:text-white mb-6">Themes</h1>
-      <p class="text-2xl leading-relaxed text-gray-600 dark:text-gray-300 mb-6">
-        Easily install and manage Themes on Linux!
-      </p>
+      <p class="text-2xl leading-relaxed text-gray-600 dark:text-gray-300 mb-6">Easily install and manage Themes on Linux!</p>
       <a href="/download" class="mt-6 inline-block px-8 py-4 bg-blue-600 dark:bg-blue-700 text-white text-2xl rounded-lg hover:bg-blue-900 dark:hover:bg-blue-800 transition-all">
         <Icon name="material-symbols:cloud-download" class="w-6 h-6 inline mr-2" />
         Download
@@ -20,10 +17,10 @@ import { Icon } from 'astro-icon/components';
       </div>
     </div>
     <div class="w-full p-24 justify-items-center">
-      <img src="/uploads/day-night.png" alt="Space Theme" class="">
+      <img src="/uploads/day-night.png" alt="Space Theme" class="" />
     </div>
   </section>
-<!-- 
+  <!-- 
   <section class="relative min-h-screen py-10 px-4 flex flex-col justify-center bg-black dark:bg-gray-900">
 	<video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0">
 	  <source src="/assets/videos/gaming-2.webm" type="video/webm">
@@ -158,5 +155,4 @@ import { Icon } from 'astro-icon/components';
 	  </a>
 	</div>
   </section> -->
-
 </Layout>

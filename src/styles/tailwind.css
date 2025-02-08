@@ -4,22 +4,21 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-    font-family: "Source Sans Pro", sans-serif;
-    overflow-x: hidden;
+  font-family: "Source Sans Pro", sans-serif;
+  overflow-x: hidden;
 }
 
 .on-dark {
-    display: none !important;
+  display: none !important;
 }
 
 @media (prefers-color-scheme: dark) {
-    .on-light {
-        display: none !important;
-    }
+  .on-light {
+    display: none !important;
+  }
 
-    .on-dark {
-        display: inherit !important;
-    }
+  .on-dark {
+    display: inherit !important;
+  }
 }

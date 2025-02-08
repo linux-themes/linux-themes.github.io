@@ -1,10 +1,9 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { Icon } from 'astro-icon/components';
+import Layout from "../../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
 ---
 
 <Layout title="Icons">
-
   <section class="p-10 bg-gray-50 dark:bg-gray-900">
     <div class="container mx-auto px-4">
       <div class="text-center mb-10">
@@ -14,7 +13,13 @@ import { Icon } from 'astro-icon/components';
     </div>
     <div class="flex justify-center mb-8">
       <div class="relative w-full max-w-md">
-        <input type="search" id="storeSearch" autocomplete="off" placeholder="mint" class="w-full py-2 pl-10 pr-4 border rounded-lg shadow-sm focus:ring focus:outline-none dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-400 dark:border-gray-700" />
+        <input
+          type="search"
+          id="storeSearch"
+          autocomplete="off"
+          placeholder="mint"
+          class="w-full py-2 pl-10 pr-4 border rounded-lg shadow-sm focus:ring focus:outline-none dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-400 dark:border-gray-700"
+        />
         <Icon name="material-symbols:search" class="absolute top-2 left-2 w-6 h-6 text-gray-400 dark:text-gray-300" />
       </div>
     </div>
@@ -22,175 +27,187 @@ import { Icon } from 'astro-icon/components';
 
   <div class="container mx-auto px-4 mt-8">
     <div id="filters" class="flex mb-8 space-x-4 overflow-x-auto md:overflow-x-hidden w-full md:justify-center">
-      <button onclick="location.href='/themesdatabase'" id="allFilter" class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors opacity-50">All</button>
-      <button onclick="location.href='/database/themes'" id="themesFilter" class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors opacity-50">Themes</button>
-      <button onclick="location.href='/database/icons'" id="iconsFilter" class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors active:shadow-lg">Icons</button>
-      <button onclick="location.href='/database/configs'" id="configsFilter" class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors opacity-50">Configs</button>
+      <button
+        onclick="location.href='/themesdatabase'"
+        id="allFilter"
+        class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors opacity-50">All</button
+      >
+      <button
+        onclick="location.href='/database/themes'"
+        id="themesFilter"
+        class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors opacity-50">Themes</button
+      >
+      <button
+        onclick="location.href='/database/icons'"
+        id="iconsFilter"
+        class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors active:shadow-lg">Icons</button
+      >
+      <button
+        onclick="location.href='/database/configs'"
+        id="configsFilter"
+        class="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors opacity-50">Configs</button
+      >
     </div>
 
-      <div id="storeResults" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- JS will inject cards here -->
-      </div>
+    <div id="storeResults" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- JS will inject cards here -->
+    </div>
   </div>
 
   <div class="modal" id="modal_installer"></div>
   <div class="modal" id="modal_review"></div>
-
 </Layout>
 
 <script>
-import jsyaml from 'js-yaml';
+  import jsyaml from "js-yaml";
 
-interface Icons {
-  Name: string;
-  Description: string;
-  Icon: string;
-  Grade: string;
-  Category: string;
-}
-
-class IconComponent {
-  searchInput: HTMLInputElement | null;
-  filters: { [key: string]: HTMLElement | null };
-  storeResults: HTMLElement | null;
-
-  constructor() {
-    this.searchInput = document.getElementById('storeSearch') as HTMLInputElement;
-    this.storeResults = document.getElementById('storeResults');
-    this.filters = {
-      all: document.getElementById('allFilter'),
-      themes: document.getElementById('themesFilter'),
-      icons: document.getElementById('iconsFilter'),
-      configs: document.getElementById('configsFilter'),
-    };
-
-    this.initSearch();
-    this.initFilters();
-    this.fetchIcons();
+  interface Icons {
+    Name: string;
+    Description: string;
+    Icon: string;
+    Grade: string;
+    Category: string;
   }
 
-  initSearch(): void {
-    if (this.searchInput) {
-      this.searchInput.addEventListener('keyup', (e) => {
-        const search = this.searchInput?.value.toLowerCase() || '';
-        const cards = document.querySelectorAll('#storeResults .card');
-        cards.forEach((card) => {
-          const text = card.textContent?.toLowerCase() || '';
-          (card as HTMLElement).style.display = text.includes(search) ? 'flex' : 'none';
-        });
-      });
+  class IconComponent {
+    searchInput: HTMLInputElement | null;
+    filters: { [key: string]: HTMLElement | null };
+    storeResults: HTMLElement | null;
+
+    constructor() {
+      this.searchInput = document.getElementById("storeSearch") as HTMLInputElement;
+      this.storeResults = document.getElementById("storeResults");
+      this.filters = {
+        all: document.getElementById("allFilter"),
+        themes: document.getElementById("themesFilter"),
+        icons: document.getElementById("iconsFilter"),
+        configs: document.getElementById("configsFilter"),
+      };
+
+      this.initSearch();
+      this.initFilters();
+      this.fetchIcons();
     }
-  }
 
-  initFilters(): void {
-    for (const filter in this.filters) {
-      const button = this.filters[filter];
-      if (button) {
-        button.addEventListener('click', () => {
-          const cards = document.querySelectorAll('#storeResults .card');
-          const filterValue = filter === 'all' ? '' : filter;
-
+    initSearch(): void {
+      if (this.searchInput) {
+        this.searchInput.addEventListener("keyup", (e) => {
+          const search = this.searchInput?.value.toLowerCase() || "";
+          const cards = document.querySelectorAll("#storeResults .card");
           cards.forEach((card) => {
-            const category = (card as HTMLElement).getAttribute('category') || '';
-
-            (card as HTMLElement).style.display = filter === 'all' || category === filterValue ? 'flex' : 'none';
+            const text = card.textContent?.toLowerCase() || "";
+            (card as HTMLElement).style.display = text.includes(search) ? "flex" : "none";
           });
-
-          for (const filter in this.filters) {
-            if (this.filters[filter]) {
-              this.filters[filter]?.classList.add('opacity-50');
-              this.filters[filter]?.classList.remove('shadow-lg');
-            }
-          }
-
-          button.classList.remove('opacity-50');
-          button.classList.add('shadow-lg');
         });
       }
     }
-  }
 
-  fetchIcons(): void {
-    fetch(`https://raw.githubusercontent.com/linux-themes/database/refs/heads/main/icons/index.yml`)
-      .then((response) => response.text())
-      .then((data) => {
-        const themes: { [key: string]: {[key: string]: Icons} } = jsyaml.load(data) as  { [key: string]: {[key: string]: Icons} }
-        if (typeof themes === 'object' && this.storeResults) {
-          for (const item in themes["Themes"]) {
-            const theme = themes["Themes"][item];
-            // const icon = `https://github.com/linux-themes/themes/blob/main/data/${item}/${theme.Icon}?raw=true`;
-            // const cardHTML = this.generateIconsCardHTML(item, theme, icon);
-            const cardHTML = this.generateIconsCardHTML(item, theme, "/assets/logo.svg");
-            this.storeResults.innerHTML += cardHTML;
+    initFilters(): void {
+      for (const filter in this.filters) {
+        const button = this.filters[filter];
+        if (button) {
+          button.addEventListener("click", () => {
+            const cards = document.querySelectorAll("#storeResults .card");
+            const filterValue = filter === "all" ? "" : filter;
+
+            cards.forEach((card) => {
+              const category = (card as HTMLElement).getAttribute("category") || "";
+
+              (card as HTMLElement).style.display = filter === "all" || category === filterValue ? "flex" : "none";
+            });
+
+            for (const filter in this.filters) {
+              if (this.filters[filter]) {
+                this.filters[filter]?.classList.add("opacity-50");
+                this.filters[filter]?.classList.remove("shadow-lg");
+              }
+            }
+
+            button.classList.remove("opacity-50");
+            button.classList.add("shadow-lg");
+          });
+        }
+      }
+    }
+
+    fetchIcons(): void {
+      fetch(`https://raw.githubusercontent.com/linux-themes/database/refs/heads/main/icons/index.yml`)
+        .then((response) => response.text())
+        .then((data) => {
+          const themes: { [key: string]: { [key: string]: Icons } } = jsyaml.load(data) as { [key: string]: { [key: string]: Icons } };
+          if (typeof themes === "object" && this.storeResults) {
+            for (const item in themes["Themes"]) {
+              const theme = themes["Themes"][item];
+              // const icon = `https://github.com/linux-themes/themes/blob/main/data/${item}/${theme.Icon}?raw=true`;
+              // const cardHTML = this.generateIconsCardHTML(item, theme, icon);
+              const cardHTML = this.generateIconsCardHTML(item, theme, "/assets/logo.svg");
+              this.storeResults.innerHTML += cardHTML;
+            }
           }
-        }
-      })
-      .catch((err) => console.error('Failed to fetch Installers database index!', err));
-  }
-
-  getsColor(category: string): string {
-        switch (category.toLowerCase()) {
-            case 'essentials':
-            return 'bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100';
-            case 'fonts':
-                return 'bg-yellow-300 text-yellow-900 dark:bg-yellow-600 dark:text-yellow-100';
-            case 'runtimes':
-                return 'bg-black text-white dark:bg-black dark:text-white';
-            case 'winebridge':
-              return 'bg-blue-300 text-blue-900 dark:bg-blue-600 dark:text-blue-100';
-            case 'runners':
-                return 'bg-orange-300 text-orange-900 dark:bg-orange-600 dark:text-orange-100';
-            case 'vkd3d':
-                return 'bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100';
-            case 'dxvk':
-                return 'bg-purple-300 text-purple-900 dark:bg-purple-600 dark:text-purple-100';
-            case 'nvapi':
-                return 'bg-emerald-300 text-emerald-900 dark:bg-emerald-600 dark:text-emerald-100';
-            case 'latencyflex':
-                return 'bg-sky-300 text-sky-900 dark:bg-sky-600 dark:text-sky-100';
-            default:
-                return 'bg-gray-300 text-gray-900 dark:bg-gray-600 dark:text-gray-200';
-        }
+        })
+        .catch((err) => console.error("Failed to fetch Installers database index!", err));
     }
 
+    getsColor(category: string): string {
+      switch (category.toLowerCase()) {
+        case "essentials":
+          return "bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100";
+        case "fonts":
+          return "bg-yellow-300 text-yellow-900 dark:bg-yellow-600 dark:text-yellow-100";
+        case "runtimes":
+          return "bg-black text-white dark:bg-black dark:text-white";
+        case "winebridge":
+          return "bg-blue-300 text-blue-900 dark:bg-blue-600 dark:text-blue-100";
+        case "runners":
+          return "bg-orange-300 text-orange-900 dark:bg-orange-600 dark:text-orange-100";
+        case "vkd3d":
+          return "bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100";
+        case "dxvk":
+          return "bg-purple-300 text-purple-900 dark:bg-purple-600 dark:text-purple-100";
+        case "nvapi":
+          return "bg-emerald-300 text-emerald-900 dark:bg-emerald-600 dark:text-emerald-100";
+        case "latencyflex":
+          return "bg-sky-300 text-sky-900 dark:bg-sky-600 dark:text-sky-100";
+        default:
+          return "bg-gray-300 text-gray-900 dark:bg-gray-600 dark:text-gray-200";
+      }
+    }
 
-
-
-  getGradeColor(grade: string): string {
-    switch (grade.toLowerCase()) {
-      case 'custom':
-        return 'bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100';
+    getGradeColor(grade: string): string {
+      switch (grade.toLowerCase()) {
+        case "custom":
+          return "bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100";
         // return 'bg-gray-300 text-gray-900';
-      case 'theme':
-        return 'bg-gray-300 text-gray-900';
-      case 'icon':
-        return 'bg-blue-300 text-blue-900 dark:bg-blue-600 dark:text-blue-100';
+        case "theme":
+          return "bg-gray-300 text-gray-900";
+        case "icon":
+          return "bg-blue-300 text-blue-900 dark:bg-blue-600 dark:text-blue-100";
         // return 'bg-yellow-300 text-yellow-900';
-      case 'config':
-        return 'bg-gray-200 text-gray-800';
-      default:
-        return 'bg-gray-200 text-gray-800';
+        case "config":
+          return "bg-gray-200 text-gray-800";
+        default:
+          return "bg-gray-200 text-gray-800";
+      }
     }
-  }
 
-  getCategoryColor(category: string): string {
-    switch (category.toLowerCase()) {
-      case 'theme':
-        return 'bg-blue-200 text-blue-800';
-      case 'icons':
-        return 'bg-blue-300 text-blue-900 dark:bg-blue-600 dark:text-blue-100';
+    getCategoryColor(category: string): string {
+      switch (category.toLowerCase()) {
+        case "theme":
+          return "bg-blue-200 text-blue-800";
+        case "icons":
+          return "bg-blue-300 text-blue-900 dark:bg-blue-600 dark:text-blue-100";
         // return 'bg-purple-200 text-purple-800';
-      case 'config':
-        return 'bg-purple-200 text-purple-800';
-      default:
-        return 'bg-gray-200 text-gray-800';
+        case "config":
+          return "bg-purple-200 text-purple-800";
+        default:
+          return "bg-gray-200 text-gray-800";
+      }
     }
-  }
 
-  generateIconsCardHTML(item: string, theme: Icons, icon: string): string {
-    theme.Grade = 'custom'
-    theme.Category = 'icons'
-    return `
+    generateIconsCardHTML(item: string, theme: Icons, icon: string): string {
+      theme.Grade = "custom";
+      theme.Category = "icons";
+      return `
       <div grade="${theme.Grade.toLowerCase()}" category="${theme.Category.toLowerCase()}" class="card bg-white rounded-lg shadow-md justify-between flex flex-col relative top-0 transition-all hover:shadow-lg hover:-top-1 dark:bg-gray-800 dark:text-gray-200">
         <div class="p-4">
           <div class="flex gap-4 justify-between">
@@ -213,11 +230,9 @@ class IconComponent {
       </div>
       `;
     }
-}
+  }
 
-document.addEventListener('DOMContentLoaded', () => {
-  new IconComponent();
-});
+  document.addEventListener("DOMContentLoaded", () => {
+    new IconComponent();
+  });
 </script>
-
-</Layout>
