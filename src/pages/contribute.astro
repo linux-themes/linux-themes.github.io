@@ -31,24 +31,19 @@ import { Icon } from "astro-icon/components";
         >
           <div class="flex flex-wrap items-center gap-2">
             {[
-                { status: "WIP", text: "WIP" },
-                { status: "DONE", text: "Done" },
-                { status: "ALPHA", text: "Alpha" },
-                { status: "NEXT", text: "Next" },
-                { status: "REJECTED", text: "Rejected" },
+                { status: "ALL", text: "All" },
+                { status: "CLI", text: "Command Line Interface" },
+                { status: "WEB", text: "Website" },
+                { status: "DOCS", text: "Documentation" },
+                { status: "DB", text: "Database" },
               ].map((btn) => (
-                <button
-                  class="filter-button bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg text-sm"
-                  data-status={btn.status}
-                >
+                <button class="filter-button bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg text-sm" data-status={btn.status}>
                   {btn.text}
                 </button>
               ))
             }
           </div>
-          <div
-            class="flex flex-col md:flex-row items-center gap-2 w-full md:w-auto"
-          >
+          <div class="flex flex-col md:flex-row items-center gap-2 w-full md:w-auto">
             <input
               type="text"
               id="searchInput"
@@ -92,9 +87,7 @@ import { Icon } from "astro-icon/components";
             ))
           }
           <div class="flex items-center gap-2">
-            <p
-              class="bg-purple-300 dark:bg-purple-800 px-4 py-2 rounded-lg text-sm"
-            >
+            <p class="bg-purple-300 dark:bg-purple-800 px-4 py-2 rounded-lg text-sm">
               Progress bars refers to the completion status of each task.
             </p>
           </div>
@@ -105,71 +98,65 @@ import { Icon } from "astro-icon/components";
         <div class="grid md:grid-cols-3 gap-6">
           {[
               {
-                status: "DONE",
+                status: "CLI",
                 statusColorClass: "bg-green-500",
-                title: "Library mode",
+                title: "Command line interface",
                 description:
-                  "Allow users to add any program from any theme in a library view for easy access.",
+                  "Install and configure desktop and program themes.",
                 progress: 100,
-                link: "https:.com/posts/2022-08-28-release-2022.8.28",
+                link: "https://github.com/linux-themes/themes",
               },
               {
-                status: "ALPHA",
+                status: "WEB",
+                statusColorClass: "bg-orange-500",
+                title: "Website",
+                description:
+                  "Themes offical website. Browse and install themes for linux.",
+                progress: 50,
+                link: "https:linuxthemes.org/",
+                icons: [
+                { name: "material-symbols:build-circle", title: "In progress" },
+                { name: "material-symbols:help-outline", title: "Needs funding" },
+                ],
+              infoText: "infoText",
+              },
+              {
+                status: "DOCS",
                 statusColorClass: "bg-yellow-500",
-                title: "Per-theme sandbox",
+                title: "Documentation",
                 description:
-                  "Experimental feature for wrapping each theme with a sandbox to limit permissions.",
-                progress: 80,
-                link: "https:.com/themesdevs/Themes/issues/1158",
-                icons: [
-                { name: "material-symbols:build-circle", title: "In progress" },
-                { name: "material-symbols:help-outline", title: "Needs funding" },
-                ],
-              infoText: "Estimated time: 1 week of work based on average hourly cost.",
-              },
-              {
-                status: "REJECTED",
-                statusColorClass: "bg-red-500",
-                title: "Layered themes",
-                description:
-                  "Our solution for multiple environments in one theme. Planned for Themes Next. Please refer to the Themes Next task for more details.",
-                progress: 0,
-                link: "https:.com/themesdevs/Themes/issues/510",
+                  "Documentation for Themes software",
+                progress: 100,
+                link: "https://github.com/linux-themes.org",
                 infoText:
-                  "This feature is planned for Themes Next. Read the Themes Next task for more information.",
+                  "infoText",
               },
               {
-                status: "WIP",
+                status: "DB",
                 statusColorClass: "bg-blue-500",
-                title: "Integration of UMU",
+                title: "Database",
                 description:
-                  "Integration of UMU to enhance the gaming compatibility in Themes.",
-                progress: 10,
-                link: "https:.com/posts/2024-09-24-umu-next/",
+                  "Database of custom user submitted themes and icons",
+                progress: 100,
+                link: "https://linux-themes.org/database",
                 icons: [
                 { name: "material-symbols:build-circle", title: "In progress" },
                 { name: "material-symbols:help-outline", title: "Needs funding" },
                 ],
-              infoText: "Estimated time: 4 weeks of work based on average hourly cost.",
+              infoText: "infoText",
               },
               {
-                status: "NEXT",
+                status: "TEST",
                 statusColorClass: "bg-purple-500",
-                title: "Themes Next",
-                description: `A complete redesign of Themes to overcome current limitations and provide a consistent user experience across Linux and macOS. We need funds, contributors, and companies to provide infrastructure support.
-          <br>
-          Latest update, Themes Next is now in the planning phase, <a href="https:.com/posts/2024-12-27-rust-libcosmic-next/" class="text-blue-600 dark:text-blue-400 underline">read more</a>.
-
-          Please, also read the dedicated <a href="https:.com/themesdevs/Themes/issues/3602" class="text-blue-600 dark:text-blue-400 underline">GitHub issue</a> for more information.
-          `,
-                progress: 15,
-                link: "https:.com/posts/2023-10-05-themes-next-a-new-chapter/",
+                title: "Test",
+                description: `The description.`,
+                progress: 80,
+                link: "https://github.com/",
                 icons: [
                 { name: "material-symbols:build-circle", title: "In progress" },
                 { name: "material-symbols:help-outline", title: "Needs funding" },
                 ],
-                infoText:
-                  "We are looking for funds, contributors, and companies to provide infrastructure support.",
+                infoText: "infoText",              
               },
             ].map((task) => (
               <div
@@ -197,7 +184,12 @@ import { Icon } from "astro-icon/components";
                   <div class="flex items-center space-x-2 mb-4">
                     <span class="w-full bg-gray-300 rounded">
                       <span
-                        class={`block h-2 rounded ${task.status === "DONE" ? "bg-green-500" : task.status === "ALPHA" ? "bg-yellow-500" : task.status === "REJECTED" ? "bg-red-300" : task.status === "WIP" ? "bg-blue-500" : task.status === "NEXT" ? "bg-purple-500" : ""}`}
+                        class={`block h-2 rounded ${task.status === 
+                          "CLI" ? "bg-green-500" : task.status === 
+                          "WEB" ? "bg-orange-500" : task.status === 
+                          "DOCS" ? "bg-yellow-300" : task.status === 
+                          "DB" ? "bg-blue-500" : task.status === 
+                          "TEST" ? "bg-purple-500" : ""}`}
                         style={`width: ${task.progress}%`}
                       />
                     </span>
