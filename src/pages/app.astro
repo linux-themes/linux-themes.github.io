@@ -3,19 +3,19 @@ import Layout from "../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
 ---
 
-<Layout title="App Details">
+<Layout title="Theme Details">
   <div class="flex items-center justify-center h-screen dark:bg-gray-900" id="loading">
     <Icon name="material-symbols:sync" class="w-16 h-16 animate-spin dark:text-gray-200" id="loadingIcon" />
-    <span class="text-2xl ml-4 dark:text-gray-200">Loading App details...</span>
+    <span class="text-2xl ml-4 dark:text-gray-200">Loading Theme details...</span>
   </div>
 
-  <div id="appContent" class="hidden">
+  <div id="themeContent" class="hidden">
     <section class="py-16 bg-gray-50 dark:bg-gray-900">
       <div class="container mx-auto px-4">
         <div class="flex justify-between items-center flex-col md:flex-row">
           <div>
             <div class="flex gap-4 flex-col md:flex-row items-center md:items-start">
-              <img id="app_icon" class="w-16 h-16" alt="!APP_NAME! Icon" />
+              <img id="theme_icon" class="w-16 h-16" alt="!APP_NAME! Icon" />
               <h1 class="text-5xl font-bold mb-2 text-gray-900 dark:text-white">!APP_NAME!</h1>
             </div>
             <p class="text-lg text-gray-700 dark:text-gray-300 mb-4 text-center md:text-left">!APP_DESCRIPTION!</p>
@@ -42,7 +42,7 @@ import { Icon } from "astro-icon/components";
     </section>
 
     <div class="container mx-auto px-4 mt-8">
-      <img class="rounded-lg shadow-lg mx-auto hidden" id="app_screenshot" alt="!APP_NAME! Screenshot" />
+      <img class="rounded-lg shadow-lg mx-auto hidden" id="theme_screenshot" alt="!APP_NAME! Screenshot" />
     </div>
 
     <section class="py-10">
@@ -55,9 +55,9 @@ import { Icon } from "astro-icon/components";
     <section class="py-10 bg-gray-50 dark:bg-gray-900">
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Dependencies</h2>
-        <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">The following dependencies will be automatically installed with this app:</p>
+        <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">The following dependencies will be automatically installed with this theme:</p>
 
-        <div class="space-y-4" id="app_dependencies">
+        <div class="space-y-4" id="theme_dependencies">
           <!-- JS will inject dependencies here -->
         </div>
       </div>
@@ -66,9 +66,9 @@ import { Icon } from "astro-icon/components";
     <section class="py-10">
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Configuration</h2>
-        <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">The following configuration will be applied to your theme:</p>
+        <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">The following configuration will be themelied to your theme:</p>
 
-        <ul class="list-disc list-inside space-y-2" id="app_configuration">
+        <ul class="list-disc list-inside space-y-2" id="theme_configuration">
           <!-- JS will inject configuration here -->
         </ul>
       </div>
@@ -130,28 +130,28 @@ import { Icon } from "astro-icon/components";
     Category: string;
   }
 
-  class InstallerApp {
+  class InstallerTheme {
     architectures: Record<string, string> = {
       win64: "64-bit",
       win32: "32-bit",
     };
 
     gradeDescriptions: Record<string, string> = {
-      Bronze: `This application works but not in the best way. 
+      Bronze: `This themelication works but not in the best way. 
           The installer has configured your theme to give you the best 
           possible experience but you have to expect glitches, inaccessible 
           features (e.g. multiplayer if it's a game) and any other problems. 
           In the future, this installer may receive updates to improve the result.`,
 
-      Silver: `This application works fine. There are some glitches, but they
-          don't affect the application's functionality. All features
+      Silver: `This themelication works fine. There are some glitches, but they
+          don't affect the themelication's functionality. All features
           are accessible and work as expected.`,
 
-      Gold: `This application works in the best way. There may be rare glitches
-          but they don't affect the application's functionality. All features
+      Gold: `This themelication works in the best way. There may be rare glitches
+          but they don't affect the themelication's functionality. All features
           are accessible and work as expected.`,
 
-      Platinum: `This application works in the best way. There are no glitches.
+      Platinum: `This themelication works in the best way. There are no glitches.
           All features are accessible and work as expected, the whole
           experience and feedback is smooth.`,
     };
@@ -170,28 +170,28 @@ import { Icon } from "astro-icon/components";
       const hash = window.location.hash.substring(1);
       if (hash && installersIndex[hash]) {
         const entry = installersIndex[hash];
-        const appData =
+        const themeData =
           (await this.fetchYamlData<InstallerEntry>(`https://raw.githubusercontent.com/themesdevs/programs/main/${entry.Category}/${hash}.yml`).catch((error) => {
-            console.error("Error fetching app data:", error);
+            console.error("Error fetching theme data:", error);
           })) || ({} as InstallerEntry);
 
-        if (Object.keys(appData).length === 0) {
-          console.error("No app data found");
+        if (Object.keys(themeData).length === 0) {
+          console.error("No theme data found");
           return;
         }
 
-        this.populateAppDetails(entry, appData, hash);
+        this.populateThemeDetails(entry, themeData, hash);
       }
     }
 
-    populateAppDetails(entry: InstallerEntry, appData: InstallerEntry, hash: string) {
+    populateThemeDetails(entry: InstallerEntry, themeData: InstallerEntry, hash: string) {
       const screenshot = `https://raw.githubusercontent.com/themesdevs/programs/main/data/${hash}/screenshot.png`;
       const icon = `https://raw.githubusercontent.com/themesdevs/programs/main/data/${hash}/${entry.Icon}`;
       const review = `https://raw.githubusercontent.com/themesdevs/programs/main/Reviews/${hash}.md`;
 
       document.body.innerHTML = document.body.innerHTML
         .replace(/!APP_NAME!/g, entry.Name)
-        .replace(/!APP_DESCRIPTION!/g, appData.Description || "")
+        .replace(/!APP_DESCRIPTION!/g, themeData.Description || "")
         .replace(/!APP_GRADE!/g, entry.Grade)
         .replace(/!APP_CATEGORY!/g, entry.Category)
         .replace(/!APP_ARCH!/g, this.architectures[entry.Arch])
@@ -201,17 +201,17 @@ import { Icon } from "astro-icon/components";
         .replace(/!APP_CATEGORY_CLASS!/g, this.getCategoryColor(entry.Category))
         .replace(/!APP_ARCH_CLASS!/g, this.getArchColor(entry.Arch));
 
-      this.updateImage("app_icon", icon);
-      this.updateImage("app_screenshot", screenshot);
+      this.updateImage("theme_icon", icon);
+      this.updateImage("theme_screenshot", screenshot);
 
-      this.populateDependencies(appData.Dependencies);
-      this.populateConfigurations(appData.Parameters);
+      this.populateDependencies(themeData.Dependencies);
+      this.populateConfigurations(themeData.Parameters);
 
       this.setupReviewModal(review);
 
       document.title = `${entry.Name}`;
       document.getElementById("loading")!.classList.add("hidden");
-      document.getElementById("appContent")!.classList.remove("hidden");
+      document.getElementById("themeContent")!.classList.remove("hidden");
     }
 
     updateImage(elementId: string, url: string) {
@@ -227,7 +227,7 @@ import { Icon } from "astro-icon/components";
 
       const dependenciesIndex = await this.fetchYamlData<Record<string, DependenciesEntry>>("https://raw.githubusercontent.com/themesdevs/dependencies/main/index.yml");
 
-      const dependenciesContainer = document.getElementById("app_dependencies")!;
+      const dependenciesContainer = document.getElementById("theme_dependencies")!;
       dependencies.forEach((dep) => {
         const depEntry = dependenciesIndex[dep];
         const depDiv = document.createElement("div");
@@ -243,7 +243,7 @@ import { Icon } from "astro-icon/components";
     populateConfigurations(parameters?: Record<string, boolean>) {
       if (!parameters) return;
 
-      const configContainer = document.getElementById("app_configuration")!;
+      const configContainer = document.getElementById("theme_configuration")!;
       Object.entries(parameters).forEach(([param, value]) => {
         const configItem = document.createElement("li");
         configItem.textContent = `${param}: ${value ? "enabled" : "disabled"}`;
@@ -321,7 +321,7 @@ import { Icon } from "astro-icon/components";
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    const app = new InstallerApp();
-    app.initialize();
+    const theme = new InstallerTheme();
+    theme.initialize();
   });
 </script>
