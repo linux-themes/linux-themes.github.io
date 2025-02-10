@@ -91,7 +91,7 @@ import { Icon } from "astro-icon/components";
 
     initSearch(): void {
       if (this.searchInput) {
-        this.searchInput.addEventListener("keyup", (e) => {
+        this.searchInput.addEventListener("keyup", () => {
           const search = this.searchInput?.value.toLowerCase() || "";
           const cards = document.querySelectorAll("#storeResults .card");
           cards.forEach((card) => {
