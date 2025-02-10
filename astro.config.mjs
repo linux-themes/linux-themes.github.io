@@ -1,15 +1,13 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-
-import tailwind from "@astrojs/tailwind";
-import icon from "astro-icon";
 // @ts-ignore
 import preact from "@astrojs/preact";
 
-// https://astro.build/config
+import icon from "astro-icon";
+import sitemap from "@astrojs/sitemap";
+import tailwind from "@astrojs/tailwind";
+
 export default defineConfig({
   site: "https://linuxthemes.org",
-  // site: "https://linux-themes.github.io",
-  // base: "website",
-  integrations: [tailwind(), icon(), preact()],
+  integrations: [tailwind(), icon(), preact(), sitemap()],
 });
