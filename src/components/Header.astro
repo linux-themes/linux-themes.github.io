@@ -71,26 +71,31 @@ import { Icon } from "astro-icon/components";
 </header>
 
 <script>
-  const hamburger = document.getElementById("hamburger");
-  const mobileMenu = document.getElementById("mobileMenu");
-  const line1 = document.getElementById("line1");
-  const line2 = document.getElementById("line2");
+  function initializeListeners() {
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const line1 = document.getElementById("line1");
+    const line2 = document.getElementById("line2");
 
-  let menuOpen = false;
+    let menuOpen = false;
 
-  hamburger!.addEventListener("click", () => {
-    console.log("clicked");
-    menuOpen = !menuOpen;
-    if (menuOpen) {
-      mobileMenu!.classList.remove("translate-x-full");
-      mobileMenu!.classList.add("translate-x-0");
-      line1!.classList.add("rotate-45");
-      line2!.classList.add("-rotate-45", "-translate-y-1.5");
-    } else {
-      mobileMenu!.classList.remove("translate-x-0");
-      mobileMenu!.classList.add("translate-x-full");
-      line1!.classList.remove("rotate-45");
-      line2!.classList.remove("-rotate-45", "-translate-y-1.5");
-    }
-  });
+    hamburger!.addEventListener("click", () => {
+      console.log("clicked");
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        mobileMenu!.classList.remove("translate-x-full");
+        mobileMenu!.classList.add("translate-x-0");
+        line1!.classList.add("rotate-45");
+        line2!.classList.add("-rotate-45", "-translate-y-1.5");
+      } else {
+        mobileMenu!.classList.remove("translate-x-0");
+        mobileMenu!.classList.add("translate-x-full");
+        line1!.classList.remove("rotate-45");
+        line2!.classList.remove("-rotate-45", "-translate-y-1.5");
+      }
+    });
+  }
+
+  window.addEventListener("load", initializeListeners); // Call the function when the page loads
+  document.addEventListener("astro:after-swap", initializeListeners); // Listen for Astro's navigation event to reinitialize the menu toggle
 </script>
