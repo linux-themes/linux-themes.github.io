@@ -123,7 +123,8 @@ import { Icon } from "astro-icon/components";
   };
 
   import jsyaml from "js-yaml";
-  import { marked } from "marked";
+  import { getDesktopColor } from "../scripts/fetch.ts";
+  import { getCategoryColor } from "../scripts/fetch.ts";
 
   // Initialization when the DOM is fully loaded
   document.addEventListener("DOMContentLoaded", async () => {
@@ -148,38 +149,6 @@ import { Icon } from "astro-icon/components";
     }
   }
 
-  function getDesktopColor(desktop: string): string {
-    switch (desktop.toLowerCase()) {
-      case "custom":
-        return "bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100";
-      case "gnome":
-        return "bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100";
-      case "theme":
-        return "bg-yellow-300 text-yellow-900 dark:bg-yellow-600 dark:text-yellow-100";
-      case "icon":
-        return "bg-blue-300 text-blue-900 dark:bg-blue-600 dark:text-blue-100";
-      case "config":
-        return "bg-gray-200 text-gray-800";
-      default:
-        return "bg-gray-200 text-gray-800";
-    }
-  }
-
-  function getCategoryColor(category: string): string {
-    switch (category.toLowerCase()) {
-      case "custom":
-        return "bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100";
-      case "themes":
-        return "bg-purple-300 text-purple-900 dark:bg-purple-600 dark:text-purple-100";
-      case "icons":
-        return "bg-blue-300 text-blue-900 dark:bg-blue-600 dark:text-blue-100";
-      case "config":
-        return "bg-gray-200 text-gray-800";
-      default:
-        return "bg-gray-200 text-gray-800";
-    }
-  }
-
   function setupReviewModal(review: string) {
     const reviewModal = document.getElementById("reviewModal")!;
     const openReviewButton = document.getElementById("openReview")!;
@@ -197,7 +166,7 @@ import { Icon } from "astro-icon/components";
   }
 
   function populateDetails(item: Theme | Icon | Config) {
-    if (!item.desktop) item.desktop = "custom";
+    if (!item.desktop) item.desktop = "all";
     document.body.innerHTML = document.body.innerHTML
       .replace(/!THEME_NAME!/g, item.name)
       .replace(/!THEME_DESCRIPTION!/g, item.description)

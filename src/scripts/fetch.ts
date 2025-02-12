@@ -68,7 +68,7 @@ export async function fetchConfigs(storeResults: HTMLElement | null): Promise<HT
   return storeResults;
 }
 
-function getDesktopColor(desktop: string): string {
+export function getDesktopColor(desktop: string): string {
   console.log(desktop);
   switch (desktop.toLowerCase()) {
     case "all":
@@ -82,7 +82,7 @@ function getDesktopColor(desktop: string): string {
   }
 }
 
-function getCategoryColor(category: string): string {
+export function getCategoryColor(category: string): string {
   switch (category.toLowerCase()) {
     case "themes":
       return "bg-purple-300 text-purple-900 dark:bg-purple-600 dark:text-purple-100";
