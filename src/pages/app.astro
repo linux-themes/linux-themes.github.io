@@ -188,9 +188,7 @@ import { Icon } from "astro-icon/components";
 
     openReviewButton.addEventListener("click", async () => {
       reviewModal.classList.remove("hidden");
-      const reviewData = await fetch(review);
-      const reviewText = await reviewData.text();
-      reviewContent.innerHTML = await marked(reviewText);
+      reviewContent.innerHTML = review;
     });
 
     closeReviewButton.addEventListener("click", () => {
@@ -215,7 +213,7 @@ import { Icon } from "astro-icon/components";
     setupReviewModal(item.description);
     // populateConfigurations(themeData.Parameters);
 
-    document.title = "theme title";
+    document.title = item.name;
     document.getElementById("loading")!.classList.add("hidden");
     document.getElementById("themeContent")!.classList.remove("hidden");
   }
