@@ -1,36 +1,8 @@
 import jsyaml from "js-yaml";
-
-type Theme = {
-  name: string;
-  description: string;
-  category: string;
-  desktop: string;
-  url_icon: string;
-  url_screenshot: string;
-  url_package: string;
-};
-
-type Icon = {
-  name: string;
-  description: string;
-  category: string;
-  desktop: string;
-  url_icon: string;
-  url_screenshot: string;
-  url_package: string;
-};
-
-type Config = {
-  name: string;
-  description: string;
-  category: string;
-  desktop: string;
-  url_icon: string;
-  url_screenshot: string;
-  url_package: string;
-};
-
-type List = { [key: string]: { [key: string]: Theme | Icon | Config } };
+import type { Theme } from "../scripts/types.ts";
+import type { Icon } from "../scripts/types.ts";
+import type { Config } from "../scripts/types.ts";
+import type { List } from "../scripts/types.ts";
 
 export async function fetchThemes(storeResults: HTMLElement | null): Promise<HTMLElement | null> {
   const response = await fetch("https://raw.githubusercontent.com/linux-themes/database/refs/heads/main/themes/index.yml");
