@@ -129,8 +129,8 @@ function generateIconsCardHTML(item: string, theme: Theme, icon: string): string
           </div>
         </div>
         <div class="bg-gray-100 rounded-b-lg text-center flex gap-2 justify-between dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
-          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-bl-lg" href="/app#${item}">Details</a>
-          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-br-lg" href="https://docs.usethemes.com/themes/themes#use-installers">Install</a>
+          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-bl-lg" href="/app#${theme.Category}_${item}">Details</a>
+          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-br-lg" href="https://linuxthemes.org/download/">Install</a>
         </div>
       </div>
       `;
@@ -156,8 +156,8 @@ function generateThemesCardHTML(item: string, theme: Theme, icon: string): strin
           </div>
         </div>
         <div class="bg-gray-100 rounded-b-lg text-center flex gap-2 justify-between dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
-          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-bl-lg" href="/app#${item}">Details</a>
-          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-br-lg" href="https://docs.usethemes.com/themes/themes#use-installers">Install</a>
+          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-bl-lg" href="/app#${theme.Category}_${item}">Details</a>
+          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-br-lg" href="https://linuxthemes.org/download/">Install</a>
         </div>
       </div>
       `;
@@ -178,8 +178,8 @@ function generateConfigCardHTML(item: string, theme: Theme, icon: string): strin
           </div>
         </div>
         <div class="bg-gray-100 rounded-b-lg text-center flex gap-2 justify-between dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
-          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-bl-lg" href="/app#${item}">Details</a>
-          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-br-lg" href="https://docs.usethemes.com/themes/themes#use-installers">Install</a>
+          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-bl-lg" href="/app#${theme.Category}_${item}">Details</a>
+          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-br-lg" href="https://linuxthemes.org/download/">Install</a>
         </div>
       </div>
       `;
