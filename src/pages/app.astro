@@ -21,7 +21,7 @@ import { Icon } from "astro-icon/components";
             <p class="text-lg text-gray-700 dark:text-gray-300 mb-4 text-center md:text-left">!THEME_DESCRIPTION!</p>
 
             <div class="flex gap-4 mb-4 justify-center md:justify-start">
-              <span class="px-2 py-1 rounded-lg text-sm !THEME_GRADE_CLASS!">!THEME_GRADE!</span>
+              <span class="px-2 py-1 rounded-lg text-sm !THEME_DESKTOP_CLASS!">!THEME_DESKTOP!</span>
               <span class="px-2 py-1 rounded-lg text-sm !THEME_CATEGORY_CLASS!">!THEME_CATEGORY!</span>
             </div>
           </div>
@@ -47,7 +47,7 @@ import { Icon } from "astro-icon/components";
     <section class="py-10">
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">About the !THEME_NAME! package</h2>
-        <p class="text-lg text-gray-700 dark:text-gray-300">!THEME_GRADE_DESCRIPTION!</p>
+        <p class="text-lg text-gray-700 dark:text-gray-300">!THEME_DESKTOP_DESCRIPTION!</p>
       </div>
     </section>
 
@@ -87,11 +87,39 @@ import { Icon } from "astro-icon/components";
 
 <script>
   type Theme = {
-    Name: string;
-    Description: string;
-    Icon: string;
-    Grade: string;
-    Category: string;
+    name: string;
+    description: string;
+    category: string;
+    desktop: string;
+    url_icon: string;
+    url_screenshot: string;
+    url_package: string;
+  };
+
+  type Icon = {
+    name: string;
+    description: string;
+    category: string;
+    desktop: string;
+    url_icon: string;
+    url_screenshot: string;
+    url_package: string;
+  };
+
+  type Config = {
+    name: string;
+    description: string;
+    category: string;
+    desktop: string;
+    url_icon: string;
+    url_screenshot: string;
+    url_package: string;
+  };
+
+  type List = {
+    [key: string]: {
+      [key: string]: Theme | Icon | Config;
+    };
   };
 
   import jsyaml from "js-yaml";
@@ -105,11 +133,11 @@ import { Icon } from "astro-icon/components";
     populateDetails(theme);
   });
 
-  async function fetchTheme(category: string, item: string): Promise<Theme> {
+  async function fetchTheme(category: string, item: string): Promise<Theme | Icon | Config> {
     const response = await fetch(`https://raw.githubusercontent.com/linux-themes/database/refs/heads/main/${category}/index.yml`);
     const data = await response.text();
-    const themes: { [key: string]: { [key: string]: Theme } } = (await jsyaml.load(data)) as { [key: string]: { [key: string]: Theme } };
-    return themes["Themes"][item];
+    const themes: List = (await jsyaml.load(data)) as List;
+    return themes[category][item];
   }
 
   function updateImage(elementId: string, url: string) {
@@ -120,9 +148,9 @@ import { Icon } from "astro-icon/components";
     }
   }
 
-  function getGradeColor(grade: string): string {
+  function getDesktopColor(grade: string): string {
     switch (grade.toLowerCase()) {
-      case "custom":
+      case "gnome":
         return "bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100";
       case "theme":
         return "bg-yellow-300 text-yellow-900 dark:bg-yellow-600 dark:text-yellow-100";
@@ -139,7 +167,7 @@ import { Icon } from "astro-icon/components";
     switch (category.toLowerCase()) {
       case "custom":
         return "bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100";
-      case "theme":
+      case "themes":
         return "bg-purple-300 text-purple-900 dark:bg-purple-600 dark:text-purple-100";
       case "icons":
         return "bg-blue-300 text-blue-900 dark:bg-blue-600 dark:text-blue-100";
@@ -168,21 +196,20 @@ import { Icon } from "astro-icon/components";
     });
   }
 
-  function populateDetails(theme: Theme) {
-    theme.Grade = "custom";
+  function populateDetails(item: Theme | Icon | Config) {
     document.body.innerHTML = document.body.innerHTML
-      .replace(/!THEME_NAME!/g, theme.Name)
-      .replace(/!THEME_DESCRIPTION!/g, theme.Description)
-      .replace(/!THEME_GRADE!/g, theme.Grade)
-      .replace(/!THEME_CATEGORY!/g, theme.Category)
-      .replace(/!THEME_GRADE_DESCRIPTION!/g, theme.Description)
-      .replace(/!THEME_SHORT_URL!/g, theme.Name.toLowerCase().replace(/\s+/g, "-"))
-      .replace(/!THEME_GRADE_CLASS!/g, getGradeColor(theme.Grade))
-      .replace(/!THEME_CATEGORY_CLASS!/g, getCategoryColor(theme.Category));
+      .replace(/!THEME_NAME!/g, item.name)
+      .replace(/!THEME_DESCRIPTION!/g, item.description)
+      .replace(/!THEME_DESKTOP!/g, item.desktop)
+      .replace(/!THEME_CATEGORY!/g, item.category)
+      .replace(/!THEME_DESKTOP_DESCRIPTION!/g, item.description)
+      .replace(/!THEME_SHORT_URL!/g, item.name.toLowerCase().replace(/\s+/g, "-"))
+      .replace(/!THEME_DESKTOP_CLASS!/g, getDesktopColor(item.desktop))
+      .replace(/!THEME_CATEGORY_CLASS!/g, getCategoryColor(item.category));
 
     updateImage("theme_icon", "/assets/logo.svg");
     updateImage("theme_screenshot", "/assets/logo.svg");
-    setupReviewModal(theme.Description);
+    setupReviewModal(item.description);
     // populateConfigurations(themeData.Parameters);
 
     document.title = "theme title";

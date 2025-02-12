@@ -1,27 +1,33 @@
 import jsyaml from "js-yaml";
 
 type Theme = {
-  Name: string;
-  Description: string;
-  Icon: string;
-  Grade: string;
-  Category: string;
+  name: string;
+  description: string;
+  category: string;
+  desktop: string;
+  url_icon: string;
+  url_screenshot: string;
+  url_package: string;
 };
 
 type Icon = {
-  Name: string;
-  Description: string;
-  Icon: string;
-  Grade: string;
-  Category: string;
+  name: string;
+  description: string;
+  category: string;
+  desktop: string;
+  url_icon: string;
+  url_screenshot: string;
+  url_package: string;
 };
 
 type Config = {
-  Name: string;
-  Description: string;
-  Icon: string;
-  Grade: string;
-  Category: string;
+  name: string;
+  description: string;
+  category: string;
+  desktop: string;
+  url_icon: string;
+  url_screenshot: string;
+  url_package: string;
 };
 
 export function fetchThemes(storeResults: HTMLElement | null): HTMLElement | null {
@@ -30,11 +36,9 @@ export function fetchThemes(storeResults: HTMLElement | null): HTMLElement | nul
     .then((data) => {
       const themes: { [key: string]: { [key: string]: Theme } } = jsyaml.load(data) as { [key: string]: { [key: string]: Theme } };
       if (typeof themes === "object" && storeResults) {
-        for (const item in themes["Themes"]) {
-          const theme = themes["Themes"][item];
-          // const icon = `https://github.com/linux-themes/themes/blob/main/data/${item}/${theme.Icon}?raw=true`;
-          // const cardHTML = generateThemesCardHTML(item, theme, icon);
-          const cardHTML = generateThemesCardHTML(item, theme, "/assets/logo.svg");
+        for (const item in themes["themes"]) {
+          const pkg = themes["themes"][item];
+          const cardHTML = generateThemesCardHTML(item, pkg, "/assets/logo.svg");
           storeResults.innerHTML += cardHTML;
         }
       }
@@ -49,11 +53,9 @@ export function fetchIcons(storeResults: HTMLElement | null): HTMLElement | null
     .then((data) => {
       const themes: { [key: string]: { [key: string]: Icon } } = jsyaml.load(data) as { [key: string]: { [key: string]: Icon } };
       if (typeof themes === "object" && storeResults) {
-        for (const item in themes["Themes"]) {
-          const theme = themes["Themes"][item];
-          // const icon = `https://github.com/linux-themes/themes/blob/main/data/${item}/${theme.Icon}?raw=true`;
-          // const cardHTML = generateIconsCardHTML(item, theme, icon);
-          const cardHTML = generateIconsCardHTML(item, theme, "/assets/logo.svg");
+        for (const item in themes["icons"]) {
+          const pkg = themes["icons"][item];
+          const cardHTML = generateIconsCardHTML(item, pkg, "/assets/logo.svg");
           storeResults.innerHTML += cardHTML;
         }
       }
@@ -68,11 +70,9 @@ export function fetchConfigs(storeResults: HTMLElement | null): HTMLElement | nu
     .then((data) => {
       const themes: { [key: string]: { [key: string]: Config } } = jsyaml.load(data) as { [key: string]: { [key: string]: Config } };
       if (typeof themes === "object" && storeResults) {
-        for (const item in themes["Themes"]) {
-          const theme = themes["Themes"][item];
-          // const icon = `https://github.com/linux-themes/themes/blob/main/data/${item}/${theme.Config}?raw=true`;
-          // const cardHTML = generateConfigsCardHTML(item, theme, icon);
-          const cardHTML = generateConfigCardHTML(item, theme, "/assets/logo.svg");
+        for (const item in themes["configs"]) {
+          const pkg = themes["configs"][item];
+          const cardHTML = generateConfigCardHTML(item, pkg, "/assets/logo.svg");
           storeResults.innerHTML += cardHTML;
         }
       }
@@ -110,26 +110,26 @@ function getCategoryColor(category: string): string {
 }
 
 function generateIconsCardHTML(item: string, theme: Theme, icon: string): string {
-  theme.Grade = "custom";
-  theme.Category = "icons";
+  theme.desktop = "custom";
+  theme.category = "icons";
   return `
-      <div grade="${theme.Grade.toLowerCase()}" category="${theme.Category.toLowerCase()}" class="card bg-white rounded-lg shadow-md justify-between flex flex-col relative top-0 transition-all hover:shadow-lg hover:-top-1 dark:bg-gray-800 dark:text-gray-200">
+      <div grade="${theme.desktop.toLowerCase()}" category="${theme.category.toLowerCase()}" class="card bg-white rounded-lg shadow-md justify-between flex flex-col relative top-0 transition-all hover:shadow-lg hover:-top-1 dark:bg-gray-800 dark:text-gray-200">
         <div class="p-4">
           <div class="flex gap-4 justify-between">
             <div>
               <img src="${icon}" alt="${item}" class="w-8 h-8 self-center">
-              <h3 class="text-2xl font-bold mb-2">${theme.Name}</h3>
+              <h3 class="text-2xl font-bold mb-2">${theme.name}</h3>
             </div>
             <h3 class="text-2xl font-bold mb-2">${item}</h3>
           </div>
-          <p class="text-gray-600 mb-4 text-xl dark:text-gray-300">${theme.Description}</p>
+          <p class="text-gray-600 mb-4 text-xl dark:text-gray-300">${theme.description}</p>
           <div class="tags flex space-x-2 mb-4">
-            <span class="${getGradeColor(theme.Grade)} px-2 py-1 rounded-lg text-sm">${theme.Grade}</span>
-            <span class="px-2 py-1 rounded-lg text-sm ${getCategoryColor(theme.Category)}">${theme.Category}</span>
+            <span class="${getGradeColor(theme.desktop)} px-2 py-1 rounded-lg text-sm">${theme.desktop}</span>
+            <span class="px-2 py-1 rounded-lg text-sm ${getCategoryColor(theme.category)}">${theme.category}</span>
           </div>
         </div>
         <div class="bg-gray-100 rounded-b-lg text-center flex gap-2 justify-between dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
-          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-bl-lg" href="/app#${theme.Category}_${item}">Details</a>
+          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-bl-lg" href="/app#${theme.category}_${item}">Details</a>
           <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-br-lg" href="https://linuxthemes.org/download/">Install</a>
         </div>
       </div>
@@ -137,26 +137,26 @@ function generateIconsCardHTML(item: string, theme: Theme, icon: string): string
 }
 
 function generateThemesCardHTML(item: string, theme: Theme, icon: string): string {
-  theme.Grade = "custom";
-  theme.Category = "themes";
+  theme.desktop = "custom";
+  theme.category = "themes";
   return `
-      <div grade="${theme.Grade.toLowerCase()}" category="${theme.Category.toLowerCase()}" class="card bg-white rounded-lg shadow-md justify-between flex flex-col relative top-0 transition-all hover:shadow-lg hover:-top-1 dark:bg-gray-800 dark:text-gray-200">
+      <div grade="${theme.desktop.toLowerCase()}" category="${theme.category.toLowerCase()}" class="card bg-white rounded-lg shadow-md justify-between flex flex-col relative top-0 transition-all hover:shadow-lg hover:-top-1 dark:bg-gray-800 dark:text-gray-200">
         <div class="p-4">
           <div class="flex gap-4 justify-between">
             <div>
               <img src="${icon}" alt="${item}" class="w-8 h-8 self-center">
-              <h3 class="text-2xl font-bold mb-2">${theme.Name}</h3>
+              <h3 class="text-2xl font-bold mb-2">${theme.name}</h3>
             </div>
             <h3 class="text-2xl font-bold mb-2">${item}</h3>
           </div>
-          <p class="text-gray-600 mb-4 text-xl dark:text-gray-300">${theme.Description}</p>
+          <p class="text-gray-600 mb-4 text-xl dark:text-gray-300">${theme.description}</p>
           <div class="tags flex space-x-2 mb-4">
-            <span class="${getGradeColor(theme.Grade)} px-2 py-1 rounded-lg text-sm">${theme.Grade}</span>
-            <span class="px-2 py-1 rounded-lg text-sm ${getCategoryColor(theme.Category)}">${theme.Category}</span>
+            <span class="${getGradeColor(theme.desktop)} px-2 py-1 rounded-lg text-sm">${theme.desktop}</span>
+            <span class="px-2 py-1 rounded-lg text-sm ${getCategoryColor(theme.category)}">${theme.category}</span>
           </div>
         </div>
         <div class="bg-gray-100 rounded-b-lg text-center flex gap-2 justify-between dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
-          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-bl-lg" href="/app#${theme.Category}_${item}">Details</a>
+          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-bl-lg" href="/app#${theme.category}_${item}">Details</a>
           <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-br-lg" href="https://linuxthemes.org/download/">Install</a>
         </div>
       </div>
@@ -165,20 +165,20 @@ function generateThemesCardHTML(item: string, theme: Theme, icon: string): strin
 
 function generateConfigCardHTML(item: string, theme: Theme, icon: string): string {
   return `
-      <div grade="${theme.Grade.toLowerCase()}" category="${theme.Category.toLowerCase()}" class="card bg-white rounded-lg shadow-md justify-between flex flex-col relative top-0 transition-all hover:shadow-lg hover:-top-1 dark:bg-gray-800 dark:text-gray-200">
+      <div grade="${theme.desktop.toLowerCase()}" category="${theme.category.toLowerCase()}" class="card bg-white rounded-lg shadow-md justify-between flex flex-col relative top-0 transition-all hover:shadow-lg hover:-top-1 dark:bg-gray-800 dark:text-gray-200">
         <div class="p-4">
           <div class="flex gap-4">
             <img src="${icon}" alt="${item}" class="w-8 h-8 self-center">
-            <h3 class="text-2xl font-bold mb-2">${theme.Name}</h3>
+            <h3 class="text-2xl font-bold mb-2">${theme.name}</h3>
           </div>
-          <p class="text-gray-600 mb-4 text-xl dark:text-gray-300">${theme.Description}</p>
+          <p class="text-gray-600 mb-4 text-xl dark:text-gray-300">${theme.description}</p>
           <div class="tags flex space-x-2 mb-4">
-            <span class="${getGradeColor(theme.Grade)} px-2 py-1 rounded-lg text-sm">${theme.Grade}</span>
-            <span class="px-2 py-1 rounded-lg text-sm ${getCategoryColor(theme.Category)}">${theme.Category}</span>
+            <span class="${getGradeColor(theme.desktop)} px-2 py-1 rounded-lg text-sm">${theme.desktop}</span>
+            <span class="px-2 py-1 rounded-lg text-sm ${getCategoryColor(theme.category)}">${theme.category}</span>
           </div>
         </div>
         <div class="bg-gray-100 rounded-b-lg text-center flex gap-2 justify-between dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
-          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-bl-lg" href="/app#${theme.Category}_${item}">Details</a>
+          <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-bl-lg" href="/app#${theme.category}_${item}">Details</a>
           <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-br-lg" href="https://linuxthemes.org/download/">Install</a>
         </div>
       </div>
