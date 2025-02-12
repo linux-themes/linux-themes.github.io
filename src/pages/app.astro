@@ -148,8 +148,10 @@ import { Icon } from "astro-icon/components";
     }
   }
 
-  function getDesktopColor(grade: string): string {
-    switch (grade.toLowerCase()) {
+  function getDesktopColor(desktop: string): string {
+    switch (desktop.toLowerCase()) {
+      case "custom":
+        return "bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100";
       case "gnome":
         return "bg-green-300 text-green-900 dark:bg-green-600 dark:text-green-100";
       case "theme":
@@ -197,6 +199,7 @@ import { Icon } from "astro-icon/components";
   }
 
   function populateDetails(item: Theme | Icon | Config) {
+    if (!item.desktop) item.desktop = "custom";
     document.body.innerHTML = document.body.innerHTML
       .replace(/!THEME_NAME!/g, item.name)
       .replace(/!THEME_DESCRIPTION!/g, item.description)
