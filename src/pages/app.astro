@@ -146,24 +146,12 @@ import { Icon } from "astro-icon/components";
       .replace(/!THEME_DESKTOP_CLASS!/g, getDesktopColor(item.desktop))
       .replace(/!THEME_CATEGORY_CLASS!/g, getCategoryColor(item.category));
 
-    updateImage("theme_icon", "/assets/logo.svg");
-    updateImage("theme_screenshot", "/assets/logo.svg");
+    updateImage("theme_icon", item.url_icon);
+    updateImage("theme_screenshot", item.url_screenshot);
     setupReviewModal(item.description);
-    // populateConfigurations(themeData.Parameters);
 
     document.title = item.name;
     document.getElementById("loading")!.classList.add("hidden");
     document.getElementById("themeContent")!.classList.remove("hidden");
   }
-
-  // populateConfigurations(parameters?: Record<string, boolean>) {
-  //   if (!parameters) return;
-
-  //   const configContainer = document.getElementById("theme_configuration")!;
-  //   Object.entries(parameters).forEach(([param, value]) => {
-  //     const configItem = document.createElement("li");
-  //     configItem.textContent = `${param}: ${value ? "enabled" : "disabled"}`;
-  //     configContainer.appendChild(configItem);
-  //   });
-  // }
 </script>
