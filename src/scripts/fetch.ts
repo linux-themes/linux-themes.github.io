@@ -4,11 +4,17 @@ import type { Icon } from "../scripts/types.ts";
 import type { Config } from "../scripts/types.ts";
 import type { List } from "../scripts/types.ts";
 
+export async function getDownloads(maintainer: string, repository: string): Promise<string> {
+  const response = await fetch(`https://api.github.com/repos/${maintainer}/${repository}/releases`);
+  const data = await response.json();
+  return data[0]["assets"][0]["download_count"];
+}
+
 export async function fetchThemes(storeResults: HTMLElement | null): Promise<HTMLElement | null> {
   const response = await fetch("https://raw.githubusercontent.com/linux-themes/database/refs/heads/main/themes/index.yml");
   const data = await response.text();
   const packages: List = jsyaml.load(data) as List;
-  if (typeof packages === "object" && storeResults) {
+  if (storeResults) {
     for (const index in packages["themes"]) {
       storeResults.innerHTML += generateCardHTML(packages["themes"][index], index);
     }
@@ -20,7 +26,7 @@ export async function fetchIcons(storeResults: HTMLElement | null): Promise<HTML
   const response = await fetch("https://raw.githubusercontent.com/linux-themes/database/refs/heads/main/icons/index.yml");
   const data = await response.text();
   const packages: List = jsyaml.load(data) as List;
-  if (typeof packages === "object" && storeResults) {
+  if (storeResults) {
     for (const index in packages["icons"]) {
       storeResults.innerHTML += generateCardHTML(packages["icons"][index], index);
     }
@@ -32,7 +38,7 @@ export async function fetchConfigs(storeResults: HTMLElement | null): Promise<HT
   const response = await fetch("https://raw.githubusercontent.com/linux-themes/database/refs/heads/main/configs/index.yml");
   const data = await response.text();
   const packages: List = jsyaml.load(data) as List;
-  if (typeof packages === "object" && storeResults) {
+  if (storeResults) {
     for (const index in packages["configs"]) {
       storeResults.innerHTML += generateCardHTML(packages["configs"][index], index);
     }
