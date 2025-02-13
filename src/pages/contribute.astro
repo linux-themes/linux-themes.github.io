@@ -1,6 +1,251 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
+
+const tabs = [
+  { status: "CLI", text: "Command Line Interface" },
+  { status: "WEB", text: "Website" },
+  { status: "DOCS", text: "Documentation" },
+  { status: "DB", text: "Database" },
+];
+
+const icons = [
+  {
+    name: "material-symbols:build-circle",
+    text: "Work in progress",
+    title: "In progress",
+  },
+  {
+    name: "material-symbols:help-outline",
+    text: "Needs funding",
+    title: "Needs funding",
+  },
+  {
+    name: "material-symbols:info-outline",
+    text: "More information",
+    title: "More information",
+  },
+];
+
+const cards = [
+  // COMMAND LINE TOOL
+  {
+    status: "CLI",
+    statusColorClass: "bg-green-500",
+    title: "Add Config Support",
+    description: "Add config command. Update existing commands to support configurations",
+    progress: 100,
+    link: "https://github.com/linux-themes/themes",
+  },
+  {
+    status: "CLI",
+    statusColorClass: "bg-green-500",
+    title: "KDE Desktop Support",
+    description: "Add support for KDE Desktop.",
+    progress: 100,
+    link: "https://github.com/linux-themes/themes",
+  },
+  {
+    status: "CLI",
+    statusColorClass: "bg-green-500",
+    title: "XFCE",
+    description: "Add support for xfce Desktop.",
+    progress: 100,
+    link: "https://github.com/linux-themes/themes",
+  },
+  {
+    status: "CLI",
+    statusColorClass: "bg-green-500",
+    title: "Cinnamon Desktop Support",
+    description: "Add support for Cinnamon Desktop.",
+    progress: 100,
+    link: "https://github.com/linux-themes/themes",
+  },
+  // WEBSITE
+  {
+    status: "WEB",
+    statusColorClass: "bg-orange-500",
+    title: "Enable search",
+    description: "Fix and enable search.",
+    progress: 100,
+    link: "https:linuxthemes.org/website",
+    icons: [
+      {
+        name: "material-symbols:build-circle",
+        title: "In progress",
+      },
+      {
+        name: "material-symbols:help-outline",
+        title: "Needs funding",
+      },
+    ],
+    infoText: "infoText",
+  },
+  {
+    status: "WEB",
+    statusColorClass: "bg-orange-500",
+    title: "Add Desktop Badges",
+    description: "Add desktop badges to cards.",
+    progress: 100,
+    link: "https:linuxthemes.org/website",
+    icons: [
+      {
+        name: "material-symbols:build-circle",
+        title: "In progress",
+      },
+      {
+        name: "material-symbols:help-outline",
+        title: "Needs funding",
+      },
+    ],
+    infoText: "infoText",
+  },
+  {
+    status: "WEB",
+    statusColorClass: "bg-orange-500",
+    title: "Link GitHub Tasks",
+    description: "Fetch tasks from GitHub instead of sending static HTML.",
+    progress: 100,
+    link: "https:linuxthemes.org/website",
+    icons: [
+      {
+        name: "material-symbols:build-circle",
+        title: "In progress",
+      },
+      {
+        name: "material-symbols:help-outline",
+        title: "Needs funding",
+      },
+    ],
+    infoText: "infoText",
+  },
+  {
+    status: "WEB",
+    statusColorClass: "bg-orange-500",
+    title: "Remove Dead Code",
+    description: "Remove dead code from the website. Refactor working files.",
+    progress: 100,
+    link: "https:linuxthemes.org/website",
+    icons: [
+      {
+        name: "material-symbols:build-circle",
+        title: "In progress",
+      },
+      {
+        name: "material-symbols:help-outline",
+        title: "Needs funding",
+      },
+    ],
+    infoText: "infoText",
+  },
+  // DOCUMENTATION
+  {
+    status: "DOCS",
+    statusColorClass: "bg-yellow-500",
+    title: "Create Documentation",
+    description: "Create documentation repository. Configure website link.",
+    progress: 100,
+    link: "https://github.com/linux-themes/",
+    infoText: "infoText",
+  },
+  // DATABASE
+  {
+    status: "DB",
+    statusColorClass: "bg-blue-500",
+    title: "Add Download Tracking",
+    description: "Add a way to track downloads and disaply on website.",
+    progress: 100,
+    link: "https://linux-themes.org/database",
+    icons: [
+      {
+        name: "material-symbols:build-circle",
+        title: "In progress",
+      },
+      {
+        name: "material-symbols:help-outline",
+        title: "Needs funding",
+      },
+    ],
+    infoText: "infoText",
+  },
+  {
+    status: "DB",
+    statusColorClass: "bg-blue-500",
+    title: "Add Configs",
+    description: "Add program configs to database.",
+    progress: 100,
+    link: "https://linux-themes.org/database",
+    icons: [
+      {
+        name: "material-symbols:build-circle",
+        title: "In progress",
+      },
+      {
+        name: "material-symbols:help-outline",
+        title: "Needs funding",
+      },
+    ],
+    infoText: "infoText",
+  },
+  {
+    status: "DB",
+    statusColorClass: "bg-blue-500",
+    title: "Add More Themes",
+    description: "Add more themes to database.",
+    progress: 100,
+    link: "https://linux-themes.org/database",
+    icons: [
+      {
+        name: "material-symbols:build-circle",
+        title: "In progress",
+      },
+      {
+        name: "material-symbols:help-outline",
+        title: "Needs funding",
+      },
+    ],
+    infoText: "infoText",
+  },
+  {
+    status: "DB",
+    statusColorClass: "bg-blue-500",
+    title: "Add More Icons",
+    description: "Add more icons to database.",
+    progress: 100,
+    link: "https://linux-themes.org/database",
+    icons: [
+      {
+        name: "material-symbols:build-circle",
+        title: "In progress",
+      },
+      {
+        name: "material-symbols:help-outline",
+        title: "Needs funding",
+      },
+    ],
+    infoText: "infoText",
+  },
+  // TEST
+  {
+    status: "TEST",
+    statusColorClass: "bg-purple-500",
+    title: "Test",
+    description: "Task description.",
+    progress: 80,
+    link: "https://github.com/",
+    icons: [
+      {
+        name: "material-symbols:build-circle",
+        title: "In progress",
+      },
+      {
+        name: "material-symbols:help-outline",
+        title: "Needs funding",
+      },
+    ],
+    infoText: "infoText",
+  },
+];
 ---
 
 <Layout title="Contribute">
@@ -23,14 +268,9 @@ import { Icon } from "astro-icon/components";
           <div class="flex flex-wrap items-center gap-2">
             <button id="restButton" class="filter-button bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg text-sm" data-status=""> All </button>
             {
-              [
-                { status: "CLI", text: "Command Line Interface" },
-                { status: "WEB", text: "Website" },
-                { status: "DOCS", text: "Documentation" },
-                { status: "DB", text: "Database" },
-              ].map((btn) => (
-                <button class="filter-button bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg text-sm" data-status={btn.status}>
-                  {btn.text}
+              tabs.map((tab) => (
+                <button class="filter-button bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg text-sm" data-status={tab.status}>
+                  {tab.text}
                 </button>
               ))
             }
@@ -45,23 +285,7 @@ import { Icon } from "astro-icon/components";
       <section class="py-5">
         <div class="flex flex-wrap gap-6">
           {
-            [
-              {
-                name: "material-symbols:build-circle",
-                text: "Work in progress",
-                title: "In progress",
-              },
-              {
-                name: "material-symbols:help-outline",
-                text: "Needs funding",
-                title: "Needs funding",
-              },
-              {
-                name: "material-symbols:info-outline",
-                text: "More information",
-                title: "More information",
-              },
-            ].map((icon) => (
+            icons.map((icon) => (
               <div class="flex items-center gap-2">
                 <Icon name={icon.name} class="w-6 h-6" title={icon.title} />
                 <span class="text-gray-700 dark:text-gray-300">{icon.text}</span>
@@ -77,225 +301,7 @@ import { Icon } from "astro-icon/components";
       <section class="py-5">
         <div class="grid md:grid-cols-3 gap-6">
           {
-            [
-              // COMMAND LINE TOOL
-              {
-                status: "CLI",
-                statusColorClass: "bg-green-500",
-                title: "Add Config Support",
-                description: "Add config command. Update existing commands to support configurations",
-                progress: 100,
-                link: "https://github.com/linux-themes/themes",
-              },
-              {
-                status: "CLI",
-                statusColorClass: "bg-green-500",
-                title: "KDE Desktop Support",
-                description: "Add support for KDE Desktop.",
-                progress: 100,
-                link: "https://github.com/linux-themes/themes",
-              },
-              {
-                status: "CLI",
-                statusColorClass: "bg-green-500",
-                title: "XFCE",
-                description: "Add support for xfce Desktop.",
-                progress: 100,
-                link: "https://github.com/linux-themes/themes",
-              },
-              {
-                status: "CLI",
-                statusColorClass: "bg-green-500",
-                title: "Cinnamon Desktop Support",
-                description: "Add support for Cinnamon Desktop.",
-                progress: 100,
-                link: "https://github.com/linux-themes/themes",
-              },
-              // WEBSITE
-              {
-                status: "WEB",
-                statusColorClass: "bg-orange-500",
-                title: "Enable search",
-                description: "Fix and enable search.",
-                progress: 100,
-                link: "https:linuxthemes.org/website",
-                icons: [
-                  {
-                    name: "material-symbols:build-circle",
-                    title: "In progress",
-                  },
-                  {
-                    name: "material-symbols:help-outline",
-                    title: "Needs funding",
-                  },
-                ],
-                infoText: "infoText",
-              },
-              {
-                status: "WEB",
-                statusColorClass: "bg-orange-500",
-                title: "Add Desktop Badges",
-                description: "Add desktop badges to cards.",
-                progress: 100,
-                link: "https:linuxthemes.org/website",
-                icons: [
-                  {
-                    name: "material-symbols:build-circle",
-                    title: "In progress",
-                  },
-                  {
-                    name: "material-symbols:help-outline",
-                    title: "Needs funding",
-                  },
-                ],
-                infoText: "infoText",
-              },
-              {
-                status: "WEB",
-                statusColorClass: "bg-orange-500",
-                title: "Link GitHub Tasks",
-                description: "Fetch tasks from GitHub instead of sending static HTML.",
-                progress: 100,
-                link: "https:linuxthemes.org/website",
-                icons: [
-                  {
-                    name: "material-symbols:build-circle",
-                    title: "In progress",
-                  },
-                  {
-                    name: "material-symbols:help-outline",
-                    title: "Needs funding",
-                  },
-                ],
-                infoText: "infoText",
-              },
-              {
-                status: "WEB",
-                statusColorClass: "bg-orange-500",
-                title: "Remove Dead Code",
-                description: "Remove dead code from the website. Refactor working files.",
-                progress: 100,
-                link: "https:linuxthemes.org/website",
-                icons: [
-                  {
-                    name: "material-symbols:build-circle",
-                    title: "In progress",
-                  },
-                  {
-                    name: "material-symbols:help-outline",
-                    title: "Needs funding",
-                  },
-                ],
-                infoText: "infoText",
-              },
-              // DOCUMENTATION
-              {
-                status: "DOCS",
-                statusColorClass: "bg-yellow-500",
-                title: "Create Documentation",
-                description: "Create documentation repository. Configure website link.",
-                progress: 100,
-                link: "https://github.com/linux-themes/",
-                infoText: "infoText",
-              },
-              // DATABASE
-              {
-                status: "DB",
-                statusColorClass: "bg-blue-500",
-                title: "Add Download Tracking",
-                description: "Add a way to track downloads and disaply on website.",
-                progress: 100,
-                link: "https://linux-themes.org/database",
-                icons: [
-                  {
-                    name: "material-symbols:build-circle",
-                    title: "In progress",
-                  },
-                  {
-                    name: "material-symbols:help-outline",
-                    title: "Needs funding",
-                  },
-                ],
-                infoText: "infoText",
-              },
-              {
-                status: "DB",
-                statusColorClass: "bg-blue-500",
-                title: "Add Configs",
-                description: "Add program configs to database.",
-                progress: 100,
-                link: "https://linux-themes.org/database",
-                icons: [
-                  {
-                    name: "material-symbols:build-circle",
-                    title: "In progress",
-                  },
-                  {
-                    name: "material-symbols:help-outline",
-                    title: "Needs funding",
-                  },
-                ],
-                infoText: "infoText",
-              },
-              {
-                status: "DB",
-                statusColorClass: "bg-blue-500",
-                title: "Add More Themes",
-                description: "Add more themes to database.",
-                progress: 100,
-                link: "https://linux-themes.org/database",
-                icons: [
-                  {
-                    name: "material-symbols:build-circle",
-                    title: "In progress",
-                  },
-                  {
-                    name: "material-symbols:help-outline",
-                    title: "Needs funding",
-                  },
-                ],
-                infoText: "infoText",
-              },
-              {
-                status: "DB",
-                statusColorClass: "bg-blue-500",
-                title: "Add More Icons",
-                description: "Add more icons to database.",
-                progress: 100,
-                link: "https://linux-themes.org/database",
-                icons: [
-                  {
-                    name: "material-symbols:build-circle",
-                    title: "In progress",
-                  },
-                  {
-                    name: "material-symbols:help-outline",
-                    title: "Needs funding",
-                  },
-                ],
-                infoText: "infoText",
-              },
-              // TEST
-              {
-                status: "TEST",
-                statusColorClass: "bg-purple-500",
-                title: "Test",
-                description: "Task description.",
-                progress: 80,
-                link: "https://github.com/",
-                icons: [
-                  {
-                    name: "material-symbols:build-circle",
-                    title: "In progress",
-                  },
-                  {
-                    name: "material-symbols:help-outline",
-                    title: "Needs funding",
-                  },
-                ],
-                infoText: "infoText",
-              },
-            ].map((task) => (
+            cards.map((task) => (
               <div class={`task-card bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md transition-all relative flex flex-col`} data-status={task.status} data-title={task.title}>
                 <div>
                   <span class={`${task.statusColorClass} text-white px-2 py-1 rounded-full text-sm inline-block mb-4`}>[{task.status}]</span>
@@ -353,6 +359,14 @@ import { Icon } from "astro-icon/components";
             ))
           }
         </div>
+
+        <section id="infoModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center hidden z-20">
+          <div class="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-lg m-5 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Progress Information</h2>
+            <p id="infoModalText" class="text-lg text-gray-700 dark:text-gray-300 mb-4">Progress is calculated based on the completion status of each task.</p>
+            <button id="closeInfoModal" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-all">Close</button>
+          </div>
+        </section>
       </section>
     </section>
 
@@ -413,6 +427,10 @@ import { Icon } from "astro-icon/components";
           bb.classList.add("bg-gray-200", "dark:bg-gray-700", "text-black", "dark:text-white");
         });
         updateTasksDisplay();
+      });
+
+      document.getElementById("closeInfoModal")?.addEventListener("click", () => {
+        document.getElementById("infoModal")?.classList.add("hidden");
       });
     </script>
   </div>
