@@ -90,5 +90,5 @@ function generateCardHTML(data: Theme | Icon | Config, index: string): string {
           <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-br-lg" href="https://linuxthemes.org/download/">Install</a>
         </div>
       </div>
-      `;
+  `;
 }
