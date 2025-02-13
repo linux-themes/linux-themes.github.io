@@ -10,7 +10,7 @@ export async function fetchThemes(storeResults: HTMLElement | null): Promise<HTM
   const packages: List = jsyaml.load(data) as List;
   if (typeof packages === "object" && storeResults) {
     for (const index in packages["themes"]) {
-      storeResults.innerHTML += generateCardHTML(packages["themes"][index], "/assets/logo.svg", index);
+      storeResults.innerHTML += generateCardHTML(packages["themes"][index], index);
     }
   }
   return storeResults;
@@ -22,7 +22,7 @@ export async function fetchIcons(storeResults: HTMLElement | null): Promise<HTML
   const packages: List = jsyaml.load(data) as List;
   if (typeof packages === "object" && storeResults) {
     for (const index in packages["icons"]) {
-      storeResults.innerHTML += generateCardHTML(packages["icons"][index], "/assets/logo.svg", index);
+      storeResults.innerHTML += generateCardHTML(packages["icons"][index], index);
     }
   }
   return storeResults;
@@ -34,7 +34,7 @@ export async function fetchConfigs(storeResults: HTMLElement | null): Promise<HT
   const packages: List = jsyaml.load(data) as List;
   if (typeof packages === "object" && storeResults) {
     for (const index in packages["configs"]) {
-      storeResults.innerHTML += generateCardHTML(packages["configs"][index], "/assets/logo.svg", index);
+      storeResults.innerHTML += generateCardHTML(packages["configs"][index], index);
     }
   }
   return storeResults;
@@ -67,7 +67,7 @@ export function getCategoryColor(category: string): string {
   }
 }
 
-function generateCardHTML(data: Theme | Icon | Config, icon: string, index: string): string {
+function generateCardHTML(data: Theme | Icon | Config, index: string): string {
   if (data.category == "icons") data.desktop = "all";
   return `
       <div grade="${data.desktop.toLowerCase()}" category="${data.category.toLowerCase()}" class="card bg-white rounded-lg shadow-md justify-between flex flex-col relative top-0 transition-all hover:shadow-lg hover:-top-1 dark:bg-gray-800 dark:text-gray-200">
@@ -78,7 +78,7 @@ function generateCardHTML(data: Theme | Icon | Config, icon: string, index: stri
             </div>
             <h3 class="text-2xl font-bold mb-2">${index}</h3>
             </div>
-            <img src="${icon}" alt="${data.name}" class="h-60 self-center">
+            <img src="${data.url_icon}" alt="${data.name}" class="h-60 self-center">
           <p class="text-gray-600 mb-4 text-xl dark:text-gray-300">${data.description}</p>
           <div class="tags flex space-x-2 mb-4">
             <span class="${getDesktopColor(data.desktop)} px-2 py-1 rounded-lg text-sm">${data.desktop}</span>
