@@ -71,14 +71,14 @@ function generateCardHTML(data: Theme | Icon | Config, icon: string, index: stri
   if (data.category == "icons") data.desktop = "all";
   return `
       <div grade="${data.desktop.toLowerCase()}" category="${data.category.toLowerCase()}" class="card bg-white rounded-lg shadow-md justify-between flex flex-col relative top-0 transition-all hover:shadow-lg hover:-top-1 dark:bg-gray-800 dark:text-gray-200">
-        <div class="p-4">
+        <div class="p-4 flex flex-col ">
           <div class="flex gap-4 justify-between">
             <div>
-              <img src="${icon}" alt="${data.name}" class="w-8 h-8 self-center">
-              <h3 class="text-2xl font-bold mb-2">${data.name}</h3>
+            <h3 class="text-2xl font-bold mb-2">${data.name}</h3>
             </div>
             <h3 class="text-2xl font-bold mb-2">${index}</h3>
-          </div>
+            </div>
+            <img src="${icon}" alt="${data.name}" class="h-60 self-center">
           <p class="text-gray-600 mb-4 text-xl dark:text-gray-300">${data.description}</p>
           <div class="tags flex space-x-2 mb-4">
             <span class="${getDesktopColor(data.desktop)} px-2 py-1 rounded-lg text-sm">${data.desktop}</span>
