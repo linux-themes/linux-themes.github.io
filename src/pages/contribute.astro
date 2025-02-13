@@ -312,9 +312,7 @@ const cards = [
                         <Icon name={ic.name} class="w-5 h-5" title={ic.title} />
                       ))}
                     </div>
-                  ) : (
-                    ""
-                  )}
+                  ) : null}
                   <p class="text-lg mb-4" set:html={task.description} />
                   <div class="flex items-center space-x-2 mb-4">
                     <span class="w-full bg-gray-300 rounded">
@@ -341,9 +339,7 @@ const cards = [
                         class="w-6 h-6 cursor-pointer"
                         onclick={`document.getElementById('infoModal').classList.remove('hidden'); document.getElementById('infoModalText').innerText = '${task.infoText}'`}
                       />
-                    ) : (
-                      ""
-                    )}
+                    ) : null}
                   </div>
                 </div>
                 <div class="mt-auto">
