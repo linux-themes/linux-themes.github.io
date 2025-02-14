@@ -10,7 +10,7 @@ export async function getDownloads(maintainer: string, repository: string) {
     const data = await response.json();
     return data[0]["assets"][0]["download_count"];
   } catch {
-    return "Unable to fetch download count";
+    return "Download count not available";
   }
 }
 

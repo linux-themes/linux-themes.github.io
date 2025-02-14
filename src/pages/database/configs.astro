@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
 
-import { fetchConfigs } from "../../scripts/fetch";
+import { fetchConfigs, getDownloads } from "../../scripts/fetch";
 import { getDesktopColor } from "../../scripts/fetch";
 import { getCategoryColor } from "../../scripts/fetch";
 
@@ -74,12 +74,12 @@ const cards = configs;
                   <span class={`${getDesktopColor(card.desktop)} px-2 py-1 rounded-lg text-sm`}>{card.desktop}</span>
                   <span class={`${getCategoryColor(card.category)} px-2 py-1 rounded-lg text-sm`}>{card.category}</span>
                 </div>
-                {/* <div>
+                <div>
                   <span class={`bg-blue-300 text-blue-900 px-2 py-1 rounded-lg text-sm flex gap-2 items-center`}>
                     <Icon name="material-symbols:download" />
-                    Unable to fetch count
+                    {getDownloads(card.maintainer, card.repository)}
                   </span>
-                </div> */}
+                </div>
               </div>
             </div>
             <div class="bg-gray-100 rounded-b-lg text-center flex gap-2 justify-between dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">

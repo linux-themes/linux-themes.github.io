@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
 
-import { fetchIcons } from "../scripts/fetch";
+import { fetchIcons, getDownloads } from "../scripts/fetch";
 import { fetchThemes } from "../scripts/fetch";
 import { fetchConfigs } from "../scripts/fetch";
 import { getDesktopColor } from "../scripts/fetch";
@@ -70,7 +70,7 @@ const cards = icons.concat(themes).concat(configs);
                   <div>
                     <h3 class="text-2xl font-bold mb-2">{card.name}</h3>
                   </div>
-                  <h3 class="text-2xl font-bold mb-2">{card.package_number}</h3>
+                  <h3 class="text-blue-300 text-2xl font-bold mb-2">{card.package_number}</h3>
                 </div>
                 <img src={`${card.url_icon}`} alt={`${card.name}`} class="h-60 self-center p-4" />
                 <p class="text-gray-600 mb-4 text-xl dark:text-gray-300">{card.description}</p>
@@ -79,12 +79,12 @@ const cards = icons.concat(themes).concat(configs);
                     <span class={`${getDesktopColor(card.desktop)} px-2 py-1 rounded-lg text-sm`}>{card.desktop}</span>
                     <span class={`${getCategoryColor(card.category)} px-2 py-1 rounded-lg text-sm`}>{card.category}</span>
                   </div>
-                  {/* <div>
-                  <span class={`bg-blue-300 text-blue-900 px-2 py-1 rounded-lg text-sm flex gap-2 items-center`}>
-                    <Icon name="material-symbols:download" />
-                    Unable to fetch count
-                  </span>
-                </div> */}
+                  <div>
+                    <span class={`bg-blue-300 text-blue-900 px-2 py-1 rounded-lg text-sm flex gap-2 items-center`}>
+                      <Icon name="material-symbols:download" />
+                      {getDownloads(card.maintainer, card.repository)}
+                    </span>
+                  </div>
                 </div>
               </div>
               <div class="bg-gray-100 rounded-b-lg text-center flex gap-2 justify-between dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
