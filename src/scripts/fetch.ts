@@ -6,6 +6,8 @@ import type { List } from "../scripts/types.ts";
 
 export async function getDownloads(maintainer: string, repository: string) {
   try {
+    // let url = `https://api.github.com/repos/${maintainer}/${repository}/releases`;
+    // console.log(url);
     const response = await fetch(`https://api.github.com/repos/${maintainer}/${repository}/releases`);
     const data = await response.json();
     return data[0]["assets"][0]["download_count"];

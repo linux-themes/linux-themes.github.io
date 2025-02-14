@@ -98,16 +98,16 @@ import { Icon } from "astro-icon/components";
   // Initialization when the DOM is fully loaded
   document.addEventListener("DOMContentLoaded", async () => {
     const category = window.location.hash.substring(1).split("_")[0];
-    const item = window.location.hash.substring(1).split("_")[1];
-    const theme = await fetchTheme(category, item);
-    populateDetails(theme);
+    const package_number = window.location.hash.substring(1).split("_")[1];
+    const pkg = await fetchPackage(category, package_number);
+    populateDetails(pkg);
   });
 
-  async function fetchTheme(category: string, item: string): Promise<Theme | Icon | Config> {
+  async function fetchPackage(category: string, package_number: string) {
     const response = await fetch(`https://raw.githubusercontent.com/linux-themes/database/refs/heads/main/${category}/index.yml`);
     const data = await response.text();
-    const themes: List = (await jsyaml.load(data)) as List;
-    return themes[category][item];
+    const pkg: List = (await jsyaml.load(data)) as List;
+    return pkg[category][package_number];
   }
 
   function updateImage(elementId: string, url: string) {
@@ -134,23 +134,22 @@ import { Icon } from "astro-icon/components";
     });
   }
 
-  function populateDetails(item: Theme | Icon | Config) {
-    if (!item.desktop) item.desktop = "all";
+  function populateDetails(card: Theme | Icon | Config) {
     document.body.innerHTML = document.body.innerHTML
-      .replace(/!THEME_NAME!/g, item.name)
-      .replace(/!THEME_DESCRIPTION!/g, item.description)
-      .replace(/!THEME_DESKTOP!/g, item.desktop)
-      .replace(/!THEME_CATEGORY!/g, item.category)
-      .replace(/!THEME_DESKTOP_DESCRIPTION!/g, item.description)
-      .replace(/!THEME_SHORT_URL!/g, item.name.toLowerCase().replace(/\s+/g, "-"))
-      .replace(/!THEME_DESKTOP_CLASS!/g, getDesktopColor(item.desktop))
-      .replace(/!THEME_CATEGORY_CLASS!/g, getCategoryColor(item.category));
+      .replace(/!THEME_NAME!/g, card.name)
+      .replace(/!THEME_DESCRIPTION!/g, card.description)
+      .replace(/!THEME_DESKTOP!/g, card.desktop)
+      .replace(/!THEME_CATEGORY!/g, card.category)
+      .replace(/!THEME_DESKTOP_DESCRIPTION!/g, card.description)
+      .replace(/!THEME_SHORT_URL!/g, card.name.toLowerCase().replace(/\s+/g, "-"))
+      .replace(/!THEME_DESKTOP_CLASS!/g, getDesktopColor(card.desktop))
+      .replace(/!THEME_CATEGORY_CLASS!/g, getCategoryColor(card.category));
 
-    updateImage("theme_icon", item.url_icon);
-    updateImage("theme_screenshot", item.url_screenshot);
-    setupReviewModal(item.description);
+    updateImage("theme_icon", card.url_icon);
+    updateImage("theme_screenshot", card.url_screenshot);
+    setupReviewModal(card.description);
 
-    document.title = item.name;
+    document.title = card.name;
     document.getElementById("loading")!.classList.add("hidden");
     document.getElementById("themeContent")!.classList.remove("hidden");
   }
