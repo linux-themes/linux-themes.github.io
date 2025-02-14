@@ -1,6 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
+
+import { fetchConfigs } from "../../scripts/fetch";
+import { getDesktopColor } from "../../scripts/fetch";
+import { getCategoryColor } from "../../scripts/fetch";
+
+const configs = await fetchConfigs();
+const cards = configs;
 ---
 
 <Layout title="Configs">
@@ -50,7 +57,42 @@ import { Icon } from "astro-icon/components";
     </div>
 
     <div id="storeResults" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- JS will inject cards here -->
+      {
+        cards.map((card, index) => (
+          <div class="card bg-white rounded-lg shadow-md justify-between flex flex-col relative top-0 transition-all hover:shadow-lg hover:-top-1 dark:bg-gray-800 dark:text-gray-200">
+            <div class="p-4 flex flex-col ">
+              <div class="flex gap-4 justify-between">
+                <div>
+                  <h3 class="text-2xl font-bold mb-2">{card.name}</h3>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">{card.package_number}</h3>
+              </div>
+              <img src={`${card.url_icon}`} alt={`${card.name}`} class="h-60 self-center p-4" />
+              <p class="text-gray-600 mb-4 text-xl dark:text-gray-300">{card.description}</p>
+              <div class="tags flex justify-between mb-4">
+                <div>
+                  <span class={`${getDesktopColor(card.desktop)} px-2 py-1 rounded-lg text-sm`}>{card.desktop}</span>
+                  <span class={`${getCategoryColor(card.category)} px-2 py-1 rounded-lg text-sm`}>{card.category}</span>
+                </div>
+                {/* <div>
+                  <span class={`bg-blue-300 text-blue-900 px-2 py-1 rounded-lg text-sm flex gap-2 items-center`}>
+                    <Icon name="material-symbols:download" />
+                    Unable to fetch count
+                  </span>
+                </div> */}
+              </div>
+            </div>
+            <div class="bg-gray-100 rounded-b-lg text-center flex gap-2 justify-between dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
+              <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-bl-lg" href={`/app#${card.category}_${index}`}>
+                Details
+              </a>
+              <a class="block font-medium text-lg size-full p-2 hover:bg-gray-500 rounded-br-lg" href="https://linuxthemes.org/download/">
+                Install
+              </a>
+            </div>
+          </div>
+        ))
+      }
     </div>
   </div>
 
@@ -59,15 +101,11 @@ import { Icon } from "astro-icon/components";
 </Layout>
 
 <script>
-  import { fetchConfigs } from "../../scripts/fetch";
-
   let searchInput = document.getElementById("storeSearch") as HTMLInputElement;
-  let storeResults = document.getElementById("storeResults");
 
   // Initialization when the DOM is fully loaded
   document.addEventListener("DOMContentLoaded", () => {
     initSearch();
-    fetchConfigs(storeResults);
   });
 
   function initSearch(): void {
