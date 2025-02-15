@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
 
-import { fetchIcons } from "../scripts/fetch";
+import { fetchIcons, getDownloads } from "../scripts/fetch";
 import { fetchThemes } from "../scripts/fetch";
 import { fetchConfigs } from "../scripts/fetch";
 import { getDesktopColor } from "../scripts/fetch";
@@ -82,7 +82,7 @@ const cards = icons.concat(themes).concat(configs);
                   <div>
                     <span class={`bg-blue-300 text-blue-900 px-2 py-1 rounded-lg text-sm flex gap-2 items-center`}>
                       <Icon name="material-symbols:download" />
-                      {/* {getDownloads(card.maintainer, card.repository)} */}
+                      {getDownloads(card.maintainer, card.repository)}
                     </span>
                   </div>
                 </div>
