@@ -8,10 +8,10 @@ import { fetchConfigs } from "../scripts/fetch";
 import { getDesktopColor } from "../scripts/fetch";
 import { getCategoryColor } from "../scripts/fetch";
 
-const icons = await fetchIcons();
 const themes = await fetchThemes();
+const icons = await fetchIcons();
 const configs = await fetchConfigs();
-const cards = icons.concat(themes).concat(configs);
+const cards = themes.concat(icons).concat(configs);
 ---
 
 <Layout title="Library">
